@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -18,8 +21,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         entities: [`${__dirname}/**/*.entity{.js, .ts}`],
         autoLoadEntities: true,
         synchronize: true,
+        namingStrategy: new SnakeNamingStrategy(),
       }),
     }),
+    UserModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
