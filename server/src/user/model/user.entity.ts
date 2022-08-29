@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -25,4 +31,12 @@ export class User {
 
   @Column({ nullable: true })
   refreshToken: string;
+
+  @Column('timestampz')
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Column('timestampz')
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

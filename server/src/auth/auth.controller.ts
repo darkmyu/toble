@@ -1,12 +1,26 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { User } from '../user/model/user.entity';
 import { AuthService } from './auth.service';
 import { OAuthRequestDto } from './dto/oauth-request.dto';
+import UserResponseDto from './dto/user-response.dto';
 import { GoogleGuard } from './guard/google.guard';
+import { JwtAuthGuard } from './guard/jwt-auth.guard';
 
 @Controller('api/v1/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async auth(@Req() req: Request, @Res() res: Response) {
+    const user = req.user as User;
+
+    return res.status(200).send({
+      statusCode: 200,
+      data: new UserResponseDto(user),
+    });
+  }
 
   @Get('google')
   @UseGuards(GoogleGuard)
@@ -21,7 +35,7 @@ export class AuthController {
     const { accessToken, refreshToken } = await this.authService.login(user);
 
     this.createCookies(res, accessToken, refreshToken);
-    return res.redirect('/');
+    return res.redirect('http://localhost:3000');
   }
 
   createCookies(res: Response, accessToken: string, refreshToken: string) {

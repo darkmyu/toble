@@ -17,6 +17,10 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
+  async findOne(id: number) {
+    return this.userRepository.findOneBy({ id });
+  }
+
   async setHashedRefreshToken(id: number, refreshToken: string) {
     const salt = await bcrypt.genSalt();
     const hashedRefreshToken = await bcrypt.hash(refreshToken, salt);
