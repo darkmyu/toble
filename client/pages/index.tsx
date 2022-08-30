@@ -1,7 +1,9 @@
+import Header from '../app/components/base/Header';
+
 export default function Home() {
   return (
-    <div>
-      <h1>Toble</h1>
-    </div>
+    <>
+      <Header />
+    </>
   );
 }
