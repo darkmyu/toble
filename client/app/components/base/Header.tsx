@@ -12,7 +12,7 @@ export default function Header() {
   );
 }
 
-const Block = styled.div`
+const Block = styled.header`
   height: 4rem;
 `;
 
@@ -21,7 +21,7 @@ const Responsive = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1160px;
+  max-width: 1140px;
   margin-left: auto;
   margin-right: auto;
   font-weight: bold;
