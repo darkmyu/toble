@@ -20,10 +20,7 @@ export class AuthController {
   async auth(@Req() req: Request, @Res() res: Response) {
     const user = req.user as User;
 
-    return res.status(200).send({
-      statusCode: 200,
-      data: new UserResponseDto(user),
-    });
+    return res.status(200).send(new UserResponseDto(user));
   }
 
   @Get('oauth/google')
