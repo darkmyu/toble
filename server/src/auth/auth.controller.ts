@@ -22,13 +22,13 @@ export class AuthController {
     });
   }
 
-  @Get('google')
+  @Get('oauth/google')
   @UseGuards(GoogleGuard)
   async google() {
     // callback url
   }
 
-  @Get('google/redirect')
+  @Get('oauth/google/redirect')
   @UseGuards(GoogleGuard)
   async googleRedirect(@Req() req: Request, @Res() res: Response) {
     const user = req.user as OAuthRequestDto;
@@ -41,11 +41,13 @@ export class AuthController {
   createCookies(res: Response, accessToken: string, refreshToken: string) {
     res.cookie('access_token', accessToken, {
       httpOnly: true,
+      domain: 'localhost',
       maxAge: 60 * 60 * 1000,
     });
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      maxAge: 60 * 60 * 1000 * 24 * 7,
+      domain: 'localhost',
+      maxAge: 60 * 60 * 1000 * 24 * 30,
     });
   }
 }

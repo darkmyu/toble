@@ -27,6 +27,24 @@ export class AuthService {
     return this.createToken(user.id);
   }
 
+  async validateRefreshToken(id: number, refreshToken: string) {
+    const result = await this.userService.validateRefreshToken(
+      id,
+      refreshToken,
+    );
+
+    if (!result) {
+      throw Error('RefreshToken does not match');
+    }
+
+    const accessToken = this.jwtService.sign(
+      { id, sub: 'access_token' },
+      { expiresIn: this.configService.get('ACCESS_TOKEN_EXPIRES_IN') },
+    );
+
+    return accessToken;
+  }
+
   async createToken(id: number) {
     const accessToken = this.jwtService.sign(
       { id, sub: 'access_token' },

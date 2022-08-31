@@ -21,6 +21,13 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
+  async validateRefreshToken(id: number, refreshToken: string) {
+    const { refreshToken: hashedRefreshToken } =
+      await this.userRepository.findOneBy({ id });
+
+    return bcrypt.compare(refreshToken, hashedRefreshToken);
+  }
+
   async setHashedRefreshToken(id: number, refreshToken: string) {
     const salt = await bcrypt.genSalt();
     const hashedRefreshToken = await bcrypt.hash(refreshToken, salt);
