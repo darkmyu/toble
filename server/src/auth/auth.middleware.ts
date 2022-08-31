@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { NextFunction, Request, Response } from 'express';
+import { EnvService } from '../env/env.service';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -8,6 +9,7 @@ export class AuthMiddleware implements NestMiddleware {
   constructor(
     private readonly jwtService: JwtService,
     private readonly authService: AuthService,
+    private readonly envService: EnvService,
   ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
@@ -34,9 +36,11 @@ export class AuthMiddleware implements NestMiddleware {
           refreshToken,
         );
 
+        const host = this.envService.getHost();
+
         res.cookie('access_token', freshAccessToken, {
           httpOnly: true,
-          domain: 'localhost',
+          domain: host,
           maxAge: 60 * 60 * 1000,
         });
 

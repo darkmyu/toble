@@ -1,5 +1,6 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { EnvService } from '../env/env.service';
 import { User } from '../user/model/user.entity';
 import { AuthService } from './auth.service';
 import { OAuthRequestDto } from './dto/oauth-request.dto';
@@ -9,7 +10,10 @@ import { JwtAuthGuard } from './guard/jwt-auth.guard';
 
 @Controller('api/v1/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly envService: EnvService,
+  ) {}
 
   @Get()
   @UseGuards(JwtAuthGuard)
@@ -35,18 +39,20 @@ export class AuthController {
     const { accessToken, refreshToken } = await this.authService.login(user);
 
     this.createCookies(res, accessToken, refreshToken);
-    return res.redirect('http://localhost:3000');
+    return res.redirect(this.envService.getRedirectUrl());
   }
 
   createCookies(res: Response, accessToken: string, refreshToken: string) {
+    const host = this.envService.getHost();
+
     res.cookie('access_token', accessToken, {
       httpOnly: true,
-      domain: 'localhost',
+      domain: host,
       maxAge: 60 * 60 * 1000,
     });
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      domain: 'localhost',
+      domain: host,
       maxAge: 60 * 60 * 1000 * 24 * 30,
     });
   }
