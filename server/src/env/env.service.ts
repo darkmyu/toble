@@ -15,7 +15,7 @@ export class EnvService {
 
   getRedirectUrl() {
     return this.configService.get('NODE_ENV') === 'development'
-      ? 'http://localhost:3000/?social=1'
-      : `https://${this.HOST}?social=1`;
+      ? 'http://localhost:3000'
+      : `https://${this.HOST}`;
   }
 }

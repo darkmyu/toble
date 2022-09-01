@@ -1,31 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from '../atoms/userState';
 import getUser from '../lib/api/auth/getUser';
 import userStorage from '../lib/userStorage';
 
 export default function useAuthEffect() {
-  const router = useRouter();
   const [query, setQuery] = useState(false);
-  const setUser = useSetRecoilState(userState);
-  const { data, isLoading, error } = useQuery(['user'], getUser, { enabled: query });
+  const [user, setUser] = useRecoilState(userState);
+  const { data, isLoading } = useQuery(['user'], getUser, { enabled: query, retry: false });
 
   useEffect(() => {
-    if (router.query.social) {
-      setQuery(true);
+    setQuery(true);
+  }, []);
 
-      if (!isLoading) {
-        setUser(data);
+  useEffect(() => {
+    if (!isLoading) {
+      setQuery(false);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (user !== data) {
         userStorage.set(data);
-        router.push('/');
+        setUser(data);
       }
     }
-
-    const tempUser = userStorage.get();
-    if (!tempUser) return;
-
-    setUser(tempUser);
-  }, [data, isLoading, router, setUser]);
+  }, [data, isLoading, setUser, user]);
 }
