@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { userState } from '../atoms/userState';
 import getUser from '../lib/api/auth/getUser';
-import userStorage from '../lib/userStorage';
 
 export default function useAuthEffect() {
   const [query, setQuery] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
+  const setUser = useSetRecoilState(userState);
   const { data, isLoading } = useQuery(['user'], getUser, { enabled: query, retry: false });
 
   useEffect(() => {
@@ -22,10 +21,7 @@ export default function useAuthEffect() {
 
   useEffect(() => {
     if (!isLoading) {
-      if (user !== data) {
-        userStorage.set(data);
-        setUser(data);
-      }
+      setUser(data);
     }
-  }, [data, isLoading, setUser, user]);
+  }, [data, isLoading, setUser]);
 }
