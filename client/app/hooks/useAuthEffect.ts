@@ -5,22 +5,13 @@ import { User, userState } from '../atoms/userState';
 import getUser from '../lib/api/auth/getUser';
 
 export default function useAuthEffect() {
-  const [query, setQuery] = useState(false);
+  const [query, setQuery] = useState(true);
   const setUser = useSetRecoilState(userState);
   const { data, isLoading } = useQuery<User>(['user'], getUser, { enabled: query, retry: false });
-  
-  useEffect(() => {
-    setQuery(true);
-  }, []);
 
   useEffect(() => {
     if (!isLoading) {
       setQuery(false);
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (!isLoading) {
       setUser(data);
     }
   }, [data, isLoading, setUser]);

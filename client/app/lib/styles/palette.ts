@@ -10,3 +10,9 @@ export const black = {
   800: '#2B2B2B',
   900: '#131313',
 };
+
+export const social = {
+  facebook: '#13A2F9',
+  google: 'white',
+  apple: black[800],
+};

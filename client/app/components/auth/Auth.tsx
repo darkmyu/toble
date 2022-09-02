@@ -1,7 +1,9 @@
 import useAuthEffect from '../../hooks/useAuthEffect';
 
-export default function Auth() {
+function Auth() {
   useAuthEffect();
 
   return <></>;
 }
+
+export default Auth;

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { EnvService } from '../env/env.service';
 import { User } from '../user/model/user.entity';
@@ -23,7 +23,7 @@ export class AuthController {
     return res.status(200).send(new UserResponseDto(user));
   }
 
-  @Post('oauth/google')
+  @Get('oauth/google')
   @UseGuards(GoogleGuard)
   async google() {
     // callback url

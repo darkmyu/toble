@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-export default function NavBar() {
+function NavBar() {
   return (
     <Block>
       <Responsive>
@@ -29,3 +29,5 @@ const Responsive = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
+
+export default NavBar;

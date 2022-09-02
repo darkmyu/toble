@@ -1,12 +1,18 @@
 import styled from '@emotion/styled';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { modalState } from '../../atoms/modalState';
+import { userState } from '../../atoms/userState';
 import { black } from '../../lib/styles/palette';
 
-export default function Header() {
+function Header() {
+  const setActive = useSetRecoilState(modalState);
+  const user = useRecoilValue(userState);
+
   return (
     <Block>
       <Responsive>
         <Logo>Toble</Logo>
-        <Right>회원가입 / 로그인</Right>
+        {user ? <Right>내 정보</Right> : <Right onClick={() => setActive(true)}>회원가입 / 로그인</Right>}
       </Responsive>
     </Block>
   );
@@ -38,3 +44,5 @@ const Right = styled.div`
   color: ${black[800]};
   cursor: pointer;
 `;
+
+export default Header;
