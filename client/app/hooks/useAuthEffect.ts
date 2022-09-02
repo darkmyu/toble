@@ -12,7 +12,7 @@ export default function useAuthEffect() {
   useEffect(() => {
     if (!isLoading) {
       setQuery(false);
-      setUser(data);
+      setUser(data || null);
     }
   }, [data, isLoading, setUser]);
 }

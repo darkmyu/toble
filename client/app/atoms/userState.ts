@@ -8,7 +8,7 @@ export interface User {
   email: string;
 }
 
-export const userState = atom<User | undefined>({
+export const userState = atom<User | null>({
   key: 'userState',
-  default: undefined,
+  default: null,
 });
