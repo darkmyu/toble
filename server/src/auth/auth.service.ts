@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
@@ -34,7 +34,7 @@ export class AuthService {
     );
 
     if (!result) {
-      throw Error('RefreshToken does not match');
+      throw new UnauthorizedException('RefreshToken does not match');
     }
 
     const accessToken = this.jwtService.sign(

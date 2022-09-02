@@ -1,4 +1,8 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import {
+  Injectable,
+  NestMiddleware,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { NextFunction, Request, Response } from 'express';
 import { EnvService } from '../env/env.service';
@@ -17,41 +21,30 @@ export class AuthMiddleware implements NestMiddleware {
     const refreshToken = req.cookies['refresh_token'];
 
     if (accessToken === undefined && refreshToken === undefined) {
-      return res.status(401).send({
-        statusCode: 401,
-        message: 'API Unauthorized',
-      });
+      throw new UnauthorizedException();
     }
 
     if (accessToken === undefined && refreshToken) {
-      try {
-        const { id } = this.jwtService.verify(refreshToken);
+      const { id } = this.jwtService.verify(refreshToken);
 
-        if (!id) {
-          throw Error('Bad RefreshToken');
-        }
+      if (!id) {
+        throw new UnauthorizedException();
+      }
 
-        const freshAccessToken = await this.authService.validateRefreshToken(
-          id,
-          refreshToken,
-        );
+      const freshAccessToken = await this.authService.validateRefreshToken(
+        id,
+        refreshToken,
+      );
 
-        const host = this.envService.getHost();
+      const host = this.envService.getHost();
 
-        res.cookie('access_token', freshAccessToken, {
+      return res
+        .cookie('access_token', freshAccessToken, {
           httpOnly: true,
           domain: host,
           maxAge: 60 * 60 * 1000,
-        });
-
-        res.redirect(req.originalUrl);
-        next();
-      } catch (error) {
-        return res.status(401).send({
-          statusCode: 401,
-          message: 'API Unauthorized',
-        });
-      }
+        })
+        .redirect(req.originalUrl);
     }
 
     next();
