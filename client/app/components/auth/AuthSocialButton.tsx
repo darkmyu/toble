@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import Image from 'next/image';
+import AppleIcon from '../../assets/apple.svg';
+import FacebookIcon from '../../assets/facebook.svg';
+import GoogleIcon from '../../assets/google.svg';
 import { black, social } from '../../lib/styles/palette';
 
 interface Props {
@@ -11,11 +13,24 @@ function AuthSocialButton({ provider }: Props) {
   const host = process.env.NEXT_PUBLIC_API_HOST;
   const path = `${host}/api/v1/auth/oauth/${provider}`;
   const color = social[provider];
+  const providerIcons = {
+    facebook: {
+      icon: FacebookIcon,
+    },
+    google: {
+      icon: GoogleIcon,
+    },
+    apple: {
+      icon: AppleIcon,
+    },
+  };
+
+  const { icon: Icon } = providerIcons[provider];
 
   return (
     <Block provider={provider} background={color}>
       <Anchor href={path}>
-        <Image src={`/assets/${provider}.svg`} alt={provider} width={32} height={32} />
+        <Icon />
       </Anchor>
     </Block>
   );

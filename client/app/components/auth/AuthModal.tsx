@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import Image from 'next/image';
 import { useRecoilState } from 'recoil';
+import CancelIcon from '../../assets/cancel.svg';
 import { modalState } from '../../atoms/modalState';
 import { black } from '../../lib/styles/palette';
 import transitions from '../../lib/styles/transitions';
@@ -20,7 +20,7 @@ function AuthModal() {
           <Top>
             <h1>Toble</h1>
             <button onClick={() => setActive(false)}>
-              <Image src='/assets/cancel.svg' alt='cancel' width={14} height={14} />
+              <CancelIcon />
             </button>
           </Top>
           <Title>나만의 블로그 이야기, 토블</Title>
