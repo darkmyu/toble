@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import { UserUpdateRequestDto } from 'src/user/dto/user-update-request.dto';
 import { Repository } from 'typeorm';
 import { OAuthRequestDto } from '../auth/dto/oauth-request.dto';
 import { User } from './model/user.entity';
@@ -19,6 +20,19 @@ export class UserService {
 
   async findOne(id: number) {
     return this.userRepository.findOneBy({ id });
+  }
+
+  async findAll() {
+    return this.userRepository.find();
+  }
+
+  async update(id: number, request: UserUpdateRequestDto) {
+    const findUser = await this.userRepository.findOneBy({ id });
+    findUser.username = request.username;
+    findUser.shortWord = request.shortWord;
+    findUser.profileImageUrl = request.profileImageUrl;
+
+    return this.userRepository.save(findUser);
   }
 
   async validateRefreshToken(id: number, refreshToken: string) {
