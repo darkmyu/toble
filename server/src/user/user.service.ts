@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserUpdateRequestDto } from 'src/user/dto/user-update-request.dto';
@@ -27,12 +27,16 @@ export class UserService {
   }
 
   async update(id: number, request: UserUpdateRequestDto) {
-    const findUser = await this.userRepository.findOneBy({ id });
-    findUser.username = request.username;
-    findUser.shortWord = request.shortWord;
-    findUser.profileImageUrl = request.profileImageUrl;
+    try {
+      const findUser = await this.userRepository.findOneBy({ id });
+      findUser.username = request.username;
+      findUser.shortWord = request.shortWord;
+      findUser.profileImageUrl = request.profileImageUrl;
 
-    return this.userRepository.save(findUser);
+      return this.userRepository.save(findUser);
+    } catch {
+      throw new NotFoundException('User not found!');
+    }
   }
 
   async validateRefreshToken(id: number, refreshToken: string) {
