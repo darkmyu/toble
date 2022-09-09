@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Blog } from '../../blog/model/blog.entity';
 
 @Entity()
 export class User {
@@ -39,4 +41,7 @@ export class User {
   @Column('timestampz')
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => Blog, (blog) => blog.user, { lazy: true })
+  blog: Blog;
 }

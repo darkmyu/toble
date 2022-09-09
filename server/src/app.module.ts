@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { AuthModule } from './auth/auth.module';
+import { BlogModule } from './blog/blog.module';
 import { EnvModule } from './env/env.module';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
 import { UserModule } from './user/user.module';
@@ -31,6 +32,7 @@ import { UserModule } from './user/user.module';
     EnvModule,
     UserModule,
     AuthModule,
+    BlogModule,
   ],
   providers: [
     {

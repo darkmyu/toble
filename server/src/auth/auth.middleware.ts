@@ -38,13 +38,13 @@ export class AuthMiddleware implements NestMiddleware {
 
       const host = this.envService.getHost();
 
-      return res
-        .cookie('access_token', freshAccessToken, {
-          httpOnly: true,
-          domain: host,
-          maxAge: 60 * 60 * 1000,
-        })
-        .redirect(req.originalUrl);
+      res.cookie('access_token', freshAccessToken, {
+        httpOnly: true,
+        domain: host,
+        maxAge: 60 * 60 * 1000,
+      });
+
+      req.cookies['access_token'] = freshAccessToken;
     }
 
     next();
