@@ -27,6 +27,7 @@ import { UserModule } from './user/user.module';
         autoLoadEntities: true,
         synchronize: true,
         namingStrategy: new SnakeNamingStrategy(),
+        logging: configService.get('NODE_ENV') === 'development' ? true : false,
       }),
     }),
     EnvModule,

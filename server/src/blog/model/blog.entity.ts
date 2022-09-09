@@ -18,7 +18,7 @@ export class Blog {
   path: string;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column({ default: 0 })
   followingCount: number;

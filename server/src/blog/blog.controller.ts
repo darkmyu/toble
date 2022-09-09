@@ -18,6 +18,11 @@ import { BlogCreateRequestDto } from './dto/blog-create-request.dto';
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
+  @Get(':userId')
+  async findOne(@Param('userId') userId: number) {
+    return this.blogService.findOne(userId);
+  }
+
   @Post()
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard)

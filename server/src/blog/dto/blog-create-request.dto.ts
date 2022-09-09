@@ -5,5 +5,5 @@ export class BlogCreateRequestDto {
   path: string;
 
   @IsString()
-  name: string;
+  title: string;
 }
