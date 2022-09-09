@@ -10,13 +10,13 @@ export class BlogResponseDto {
   followingCount: number;
   followerCount: number;
 
-  constructor(user: User) {
+  constructor(user: User, blog: Blog) {
     this.username = user.username;
     this.displayName = user.displayName;
     this.shortWord = user.shortWord;
     this.profileImageUrl = user.profileImageUrl;
-    this.title = user.blog.title;
-    this.followingCount = user.blog.followingCount;
-    this.followerCount = user.blog.followerCount;
+    this.title = blog.title;
+    this.followingCount = blog.followingCount;
+    this.followerCount = blog.followerCount;
   }
 }

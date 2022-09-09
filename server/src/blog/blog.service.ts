@@ -27,7 +27,9 @@ export class BlogService {
         .where('user.username = :username', { username })
         .getOne();
 
-      return new BlogResponseDto(user);
+      const blog = await user.blog;
+
+      return new BlogResponseDto(user, blog);
     } catch {
       throw new NotFoundException('Blog not found');
     }
