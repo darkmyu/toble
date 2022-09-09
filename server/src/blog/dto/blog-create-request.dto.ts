@@ -2,7 +2,7 @@ import { IsString } from 'class-validator';
 
 export class BlogCreateRequestDto {
   @IsString()
-  path: string;
+  username: string;
 
   @IsString()
   title: string;

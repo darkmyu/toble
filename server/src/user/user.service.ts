@@ -29,7 +29,7 @@ export class UserService {
   async update(id: number, request: UserUpdateRequestDto) {
     try {
       const findUser = await this.userRepository.findOneBy({ id });
-      findUser.username = request.username;
+      findUser.displayName = request.displayName;
       findUser.shortWord = request.shortWord;
       findUser.profileImageUrl = request.profileImageUrl;
 

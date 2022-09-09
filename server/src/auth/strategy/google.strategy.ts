@@ -19,7 +19,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const { displayName, photos, emails, provider, id } = profile;
 
     const request: OAuthRequestDto = {
-      username: displayName,
+      displayName,
       profileImageUrl: photos[0].value,
       email: emails[0].value,
       provider: provider,

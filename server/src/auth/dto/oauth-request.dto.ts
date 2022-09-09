@@ -1,5 +1,5 @@
 export class OAuthRequestDto {
-  username: string;
+  displayName: string;
   profileImageUrl: string;
   email: string;
   provider: string;

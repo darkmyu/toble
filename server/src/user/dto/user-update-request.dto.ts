@@ -1,8 +1,8 @@
-import { IsEmpty, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UserUpdateRequestDto {
   @IsString()
-  username: string;
+  displayName: string;
 
   @IsString()
   shortWord: string;

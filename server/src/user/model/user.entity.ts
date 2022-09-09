@@ -13,8 +13,11 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true, default: '' })
   username: string;
+
+  @Column()
+  displayName: string;
 
   @Column({ default: '' })
   shortWord: string;
@@ -42,6 +45,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Blog, (blog) => blog.user, { lazy: true })
+  @OneToOne(() => Blog, (blog) => blog.user)
   blog: Blog;
 }

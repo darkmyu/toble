@@ -19,24 +19,22 @@ export class BlogService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findOne(userId: number) {
+  async findOne(username: string) {
     try {
       const user = await this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.blog', 'blog')
-        .where('user.id = :id', { id: userId })
+        .where('user.username = :username', { username })
         .getOne();
 
-      const blog = await user.blog;
-
-      return new BlogResponseDto(user, blog);
+      return new BlogResponseDto(user);
     } catch {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Blog not found');
     }
   }
 
   async create(user: User, request: BlogCreateRequestDto) {
-    const exist = user.blog;
+    const exist = await user.blog;
 
     if (exist) {
       throw new ConflictException('Blog already exists');
@@ -45,6 +43,7 @@ export class BlogService {
     try {
       const createdBlog = this.blogRepository.create({ ...request, user });
       await this.blogRepository.save(createdBlog);
+      await this.userRepository.update(user.id, { username: request.username });
     } catch {
       throw new ConflictException('Duplicate userId');
     }

@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import CancelIcon from '../../assets/cancel.svg';
-import { modalState } from '../../atoms/modalState';
+import { authModalState } from '../../atoms/authModalState';
 import { black } from '../../lib/styles/palette';
 import transitions from '../../lib/styles/transitions';
 import AuthSocialButtonGroup from './AuthSocialButtonGroup';
 
 function AuthModal() {
-  const [isActive, setActive] = useRecoilState(modalState);
+  const [isActive, setActive] = useRecoilState(authModalState);
 
   if (!isActive) return <></>;
 

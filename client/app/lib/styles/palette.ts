@@ -11,6 +11,19 @@ export const black = {
   900: '#131313',
 };
 
+export const personal = {
+  50: '#ECF5FA',
+  100: '#DAECF6',
+  200: '#C7E2F1',
+  300: '#B4D8ED',
+  400: '#A1CEE8',
+  500: '#8FC5E3',
+  600: '#7CBBDF',
+  700: '#69B1DA',
+  800: '#57A8D6',
+  900: '#449ED1',
+};
+
 export const social = {
   facebook: '#13A2F9',
   google: 'white',

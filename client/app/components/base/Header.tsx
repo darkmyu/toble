@@ -1,18 +1,34 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { modalState } from '../../atoms/modalState';
+import { authModalState } from '../../atoms/authModalState';
+import { blogModalState } from '../../atoms/blogModalState';
 import { userState } from '../../atoms/userState';
 import { black } from '../../lib/styles/palette';
 
 function Header() {
-  const setActive = useSetRecoilState(modalState);
+  const setAuthActive = useSetRecoilState(authModalState);
+  const setBlogActive = useSetRecoilState(blogModalState);
   const user = useRecoilValue(userState);
+  const router = useRouter();
+
+  const onClickBlogButton = () => {
+    if (!user?.username) {
+      setBlogActive(true);
+    } else {
+      router.push(`/blog/${user?.username}`);
+    }
+  };
 
   return (
     <Block>
       <Responsive>
-        <Logo>Toble</Logo>
-        {user ? <Right>내 정보</Right> : <Right onClick={() => setActive(true)}>회원가입 / 로그인</Right>}
+        <Logo onClick={() => router.push('/')}>Toble</Logo>
+        {user ? (
+          <Right onClick={onClickBlogButton}>내 블로그</Right>
+        ) : (
+          <Right onClick={() => setAuthActive(true)}>회원가입 / 로그인</Right>
+        )}
       </Responsive>
     </Block>
   );

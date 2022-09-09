@@ -14,9 +14,6 @@ export class Blog {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  path: string;
-
   @Column()
   title: string;
 
