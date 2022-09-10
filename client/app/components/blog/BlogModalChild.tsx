@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { black } from '../../lib/styles/palette';
+import { black, personal } from '../../lib/styles/palette';
 
 interface Props {
   title: string;
@@ -25,14 +25,12 @@ const Wrapper = styled.div`
 
   .title {
     margin: 0;
-    padding-left: 0.5rem;
     font-size: 1rem;
     color: ${black[800]};
   }
 
   .description {
     margin: 0;
-    padding-left: 0.5rem;
     font-size: 0.875rem;
     color: ${black[500]};
     margin-top: 0.25rem;
@@ -41,13 +39,20 @@ const Wrapper = styled.div`
 
 const Input = styled.input`
   margin: 0;
-  margin-top: 0.5rem;
-  padding: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border: none;
-  background: ${black[50]};
+  border-bottom: 2px solid ${black[200]};
   width: 100%;
-  border-radius: 10px;
   height: 2rem;
+  font-weight: bold;
+  color: ${black[700]};
+
+  :focus {
+    outline: none;
+    border-bottom: 2px solid ${personal[900]};
+  }
 `;
 
 export default BlogModalChild;

@@ -26,19 +26,19 @@ function BlogModal() {
             <BlogModalChild
               name='url'
               title='블로그 주소'
-              description='https://toble.com/blog/{블로그 주소}'
+              description='https://toble.com/{블로그 주소}'
               value={inputs.url}
               onChangeInputs={onChangeInputs}
             />
             <BlogModalChild
               name='name'
               title='블로그 이름'
-              description='블로그 이름은 언제든지 설정에서 변경할 수 있어요'
+              description='블로그 이름은 언제든지 설정에서 변경할 수 있어요!'
               value={inputs.name}
               onChangeInputs={onChangeInputs}
             />
             <Bottom>
-              <Button>생성</Button>
+              <Button>블로그 만들기</Button>
             </Bottom>
           </Form>
         </Box>
@@ -75,7 +75,6 @@ const Wrapper = styled.div<{ isActive: boolean }>`
 
 const Box = styled.div`
   width: 530px;
-  height: 500px;
   background: white;
   border-radius: 20px;
   position: relative;
@@ -104,18 +103,19 @@ const Top = styled.div`
 
 const Form = styled.form`
   padding-top: 6rem;
+  padding-bottom: 6rem;
   margin-left: 5rem;
   margin-right: 5rem;
 
   div:nth-of-type(2) {
-    margin-top: 2.25rem;
+    margin-top: 3rem;
   }
 `;
 
 const Bottom = styled.div`
   display: flex;
   justify-content: right;
-  margin-top: 2.25rem;
+  margin-top: 5rem;
 `;
 
 const Button = styled.button`
@@ -123,12 +123,12 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  width: 96px;
-  height: 32px;
+  width: 100%;
+  height: 48px;
   background: ${personal[900]};
   color: white;
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
 `;

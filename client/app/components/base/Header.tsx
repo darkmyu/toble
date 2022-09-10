@@ -16,7 +16,7 @@ function Header() {
     if (!user?.username) {
       setBlogActive(true);
     } else {
-      router.push(`/blog/${user?.username}`);
+      router.push(`/${user?.username}`);
     }
   };
 

@@ -15,13 +15,10 @@ export class Blog {
   id: number;
 
   @Column()
+  userId: number;
+
+  @Column()
   title: string;
-
-  @Column({ default: 0 })
-  followingCount: number;
-
-  @Column({ default: 0 })
-  followerCount: number;
 
   @Column('timestampz')
   @CreateDateColumn()

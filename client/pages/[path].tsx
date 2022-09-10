@@ -1,4 +1,4 @@
-import Header from '../../app/components/base/Header';
+import Header from '../app/components/base/Header';
 
 function BlogPage() {
   return (

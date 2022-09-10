@@ -27,16 +27,14 @@ export class BlogService {
         .where('user.username = :username', { username })
         .getOne();
 
-      const blog = await user.blog;
-
-      return new BlogResponseDto(user, blog);
+      return new BlogResponseDto(user);
     } catch {
       throw new NotFoundException('Blog not found');
     }
   }
 
   async create(user: User, request: BlogCreateRequestDto) {
-    const exist = await user.blog;
+    const exist = await this.blogRepository.findOneBy({ userId: user.id });
 
     if (exist) {
       throw new ConflictException('Blog already exists');

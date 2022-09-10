@@ -45,6 +45,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Blog, (blog) => blog.user, { lazy: true })
+  @OneToOne(() => Blog, (blog) => blog.user)
   blog: Blog;
 }
