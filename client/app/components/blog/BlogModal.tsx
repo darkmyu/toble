@@ -7,7 +7,21 @@ import BlogModalChild from './BlogModalChild';
 import { useBlogModal } from './hooks/useBlogModal';
 
 function BlogModal() {
-  const { isActive, setActive, inputs, onChangeInputs, onSubmitInputs } = useBlogModal();
+  const {
+    isActive,
+    inputDescriptions,
+    inputErrorMessages,
+    register,
+    handleSubmit,
+    errors,
+    onSubmitInputs,
+    onClickCancel,
+  } = useBlogModal();
+
+  const { usernameTitle, usernameDescription, usernamePlaceholder, nameTitle, nameDescription, namePlaceholder } =
+    inputDescriptions;
+
+  const { requiredMessage, maxLengthMessage, patternMessage } = inputErrorMessages;
 
   if (!isActive) return <></>;
 
@@ -18,24 +32,28 @@ function BlogModal() {
         <Box>
           <Top>
             <h1>Toble</h1>
-            <button onClick={() => setActive(false)}>
+            <button onClick={onClickCancel}>
               <CancelIcon />
             </button>
           </Top>
-          <Form onSubmit={onSubmitInputs}>
+          <Form onSubmit={handleSubmit(onSubmitInputs)}>
             <BlogModalChild
-              name='url'
-              title='블로그 주소'
-              description='https://toble.com/{블로그 주소}'
-              value={inputs.url}
-              onChangeInputs={onChangeInputs}
+              title={usernameTitle}
+              description={usernameDescription}
+              placeholder={usernamePlaceholder}
+              errorMessage={errors.username?.message || null}
+              {...register('username', {
+                required: { value: true, message: requiredMessage },
+                maxLength: { value: 30, message: maxLengthMessage },
+                pattern: { value: /^[a-z0-9\_]+$/, message: patternMessage },
+              })}
             />
             <BlogModalChild
-              name='name'
-              title='블로그 이름'
-              description='블로그 이름은 언제든지 설정에서 변경할 수 있어요!'
-              value={inputs.name}
-              onChangeInputs={onChangeInputs}
+              title={nameTitle}
+              description={nameDescription}
+              placeholder={namePlaceholder}
+              errorMessage={errors.name?.message || null}
+              {...register('name', { required: { value: true, message: requiredMessage } })}
             />
             <Bottom>
               <Button>블로그 만들기</Button>

@@ -1,24 +1,28 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { forwardRef } from 'react';
 import { black, personal } from '../../lib/styles/palette';
 
 interface Props {
   title: string;
   description: string;
-  name: string;
-  value: string;
-  onChangeInputs: React.ChangeEventHandler<HTMLInputElement>;
+  placeholder: string;
+  errorMessage: string | null;
 }
 
-function BlogModalChild({ title, description, name, value, onChangeInputs }: Props) {
-  return (
-    <Wrapper>
-      <h1 className='title'>{title}</h1>
-      <h1 className='description'>{description}</h1>
-      <Input name={name} value={value} onChange={onChangeInputs} />
-    </Wrapper>
-  );
-}
+const BlogModalChild = forwardRef<HTMLInputElement, Props>(
+  ({ title, description, placeholder, errorMessage, ...rest }: Props, ref) => {
+    return (
+      <Wrapper>
+        <h1 className='title'>{title}</h1>
+        <h1 className='description'>{description}</h1>
+        <Input placeholder={placeholder} {...rest} ref={ref} />
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </Wrapper>
+    );
+  }
+);
+
+BlogModalChild.displayName = 'BlogModalChild';
 
 const Wrapper = styled.div`
   font-weight: bold;
@@ -53,6 +57,16 @@ const Input = styled.input`
     outline: none;
     border-bottom: 2px solid ${personal[900]};
   }
+
+  ::placeholder {
+    color: ${black[400]};
+  }
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 0.875rem;
+  color: #d65d5d;
+  margin-top: 0.5rem;
 `;
 
 export default BlogModalChild;
