@@ -18,8 +18,14 @@ function BlogModal() {
     onClickCancel,
   } = useBlogModal();
 
-  const { usernameTitle, usernameDescription, usernamePlaceholder, nameTitle, nameDescription, namePlaceholder } =
-    inputDescriptions;
+  const {
+    usernameTitle,
+    usernameDescription,
+    usernamePlaceholder,
+    nameTitle,
+    nameDescription,
+    namePlaceholder,
+  } = inputDescriptions;
 
   const { requiredMessage, maxLengthMessage, patternMessage } = inputErrorMessages;
 
