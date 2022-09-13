@@ -58,8 +58,8 @@ function BlogModal() {
               title={nameTitle}
               description={nameDescription}
               placeholder={namePlaceholder}
-              errorMessage={errors.name?.message || null}
-              {...register('name', { required: { value: true, message: requiredMessage } })}
+              errorMessage={errors.title?.message || null}
+              {...register('title', { required: { value: true, message: requiredMessage } })}
             />
             <Bottom>
               <Button>블로그 만들기</Button>

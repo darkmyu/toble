@@ -44,6 +44,7 @@ export class BlogService {
       const createdBlog = this.blogRepository.create({ ...request, user });
       await this.blogRepository.save(createdBlog);
       await this.userRepository.update(user.id, { username: request.username });
+      return request.username;
     } catch {
       throw new ConflictException('Duplicate userId');
     }

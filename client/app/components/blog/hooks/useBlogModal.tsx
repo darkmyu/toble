@@ -1,10 +1,14 @@
+import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { blogModalState } from '../../../atoms/blogModalState';
+import { createBlog } from '../../../lib/api/blogApi';
 
-interface BlogModalInputs {
+export interface BlogModalInputs {
   username: string;
-  name: string;
+  title: string;
 }
 
 export const useBlogModal = () => {
@@ -24,6 +28,8 @@ export const useBlogModal = () => {
   };
 
   const [isActive, setActive] = useRecoilState(blogModalState);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -31,13 +37,24 @@ export const useBlogModal = () => {
     reset,
   } = useForm<BlogModalInputs>();
 
+  const createMutation = useMutation((formData: BlogModalInputs) => createBlog(formData), {
+    onError: err => {
+      console.log(err);
+      // router.push('/errors');
+    },
+    onSuccess: ({ data: username }: AxiosResponse<{ username: string }>) => {
+      setActive(false);
+      router.push(`/${username}`);
+    },
+  });
+
   const onClickCancel = () => {
     setActive(false);
     reset();
   };
 
   const onSubmitInputs: SubmitHandler<BlogModalInputs> = data => {
-    console.log(data);
+    createMutation.mutate(data);
   };
 
   return {

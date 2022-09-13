@@ -1,3 +1,6 @@
+import { BlogModalInputs } from '../../components/blog/hooks/useBlogModal';
 import client from './client';
 
-export const getBlog = async (username: string) => client.get(`/api/v1/blogs/${username}`);
+export const createBlog = (data: BlogModalInputs) => {
+  return client.post('/api/v1/blogs', data);
+};

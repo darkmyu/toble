@@ -24,9 +24,9 @@ export class BlogController {
   }
 
   @Post()
-  @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard)
   async create(@AuthUser() user: User, @Body() request: BlogCreateRequestDto) {
-    await this.blogService.create(user, request);
+    const username = await this.blogService.create(user, request);
+    return username;
   }
 }
