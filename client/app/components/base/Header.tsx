@@ -4,6 +4,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authModalState } from '../../atoms/authModalState';
 import { blogModalState } from '../../atoms/blogModalState';
 import { userState } from '../../atoms/userState';
+import { ResponsiveParent } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
 
 function Header() {
@@ -38,14 +39,11 @@ const Block = styled.header`
   height: 4rem;
 `;
 
-const Responsive = styled.div`
+const Responsive = styled(ResponsiveParent)`
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
   font-weight: bold;
 `;
 

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import MenuIcon from '../../assets/menu.svg';
 import SearchIcon from '../../assets/search.svg';
+import { ResponsiveParent } from '../../lib/styles/media';
 
 function NavBar() {
   return (
@@ -22,13 +23,10 @@ const Block = styled.nav`
   }
 `;
 
-const Responsive = styled.div`
+const Responsive = styled(ResponsiveParent)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
 `;
 
 export default NavBar;
