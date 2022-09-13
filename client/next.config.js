@@ -10,6 +10,14 @@ const nextConfig = {
 
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: '/@:username',
+        destination: '/blog/:username',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

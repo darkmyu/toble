@@ -44,7 +44,7 @@ export const useBlogModal = () => {
     },
     onSuccess: ({ data: username }: AxiosResponse<{ username: string }>) => {
       setActive(false);
-      router.push(`/${username}`);
+      router.push(`/@${username}`);
     },
   });
 

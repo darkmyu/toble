@@ -14,11 +14,7 @@ function Header() {
   const router = useRouter();
 
   const onClickBlogButton = () => {
-    if (!user?.username) {
-      setBlogActive(true);
-    } else {
-      router.push(`/${user?.username}`);
-    }
+    user?.username ? router.push(`/@${user.username}`) : setBlogActive(true);
   };
 
   return (
