@@ -1,5 +1,4 @@
 import { User } from '../../user/model/user.entity';
-import { Blog } from '../model/blog.entity';
 
 export class BlogResponseDto {
   username: string;

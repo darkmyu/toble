@@ -10,6 +10,10 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+    formats: ['image/avif', 'image/webp'],
+  },
   async rewrites() {
     return [
       {
