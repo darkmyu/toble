@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user/model/user.entity';
+import { FollowService } from './../follow/follow.service';
 import { BlogCreateRequestDto } from './dto/blog-create-request.dto';
 import { BlogResponseDto } from './dto/blog-response.dto';
 import { Blog } from './model/blog.entity';
@@ -17,6 +18,7 @@ export class BlogService {
     private readonly blogRepository: Repository<Blog>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly followService: FollowService,
   ) {}
 
   async findOne(username: string) {
@@ -27,7 +29,15 @@ export class BlogService {
         .where('user.username = :username', { username })
         .getOne();
 
-      return new BlogResponseDto(user);
+      const favoritesCount = await this.followService.findFavoritesCount(
+        user.id,
+      );
+
+      const followersCount = await this.followService.findFollowersCount(
+        user.id,
+      );
+
+      return new BlogResponseDto(user, favoritesCount, followersCount);
     } catch {
       throw new NotFoundException('Blog not found');
     }

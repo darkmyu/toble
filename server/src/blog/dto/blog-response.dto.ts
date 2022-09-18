@@ -7,7 +7,11 @@ export class BlogResponseDto {
   profileImageUrl: string;
   title: string;
 
-  constructor(user: User) {
+  constructor(
+    user: User,
+    private favoritesCount: number,
+    private followersCount: number,
+  ) {
     this.username = user.username;
     this.displayName = user.displayName;
     this.shortWord = user.shortWord;

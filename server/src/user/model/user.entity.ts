@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Blog } from '../../blog/model/blog.entity';
+import { Follow } from './../../follow/model/follow.entity';
 
 @Entity()
 export class User {
@@ -47,4 +49,10 @@ export class User {
 
   @OneToOne(() => Blog, (blog) => blog.user)
   blog: Blog;
+
+  @OneToMany(() => Follow, (follow) => follow.follower)
+  followers: Follow[];
+
+  @OneToMany(() => Follow, (follow) => follow.following)
+  followings: Follow[];
 }

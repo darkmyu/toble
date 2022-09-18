@@ -9,6 +9,7 @@ import { BlogModule } from './blog/blog.module';
 import { EnvModule } from './env/env.module';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
 import { UserModule } from './user/user.module';
+import { FollowModule } from './follow/follow.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     AuthModule,
     BlogModule,
+    FollowModule,
   ],
   providers: [
     {
