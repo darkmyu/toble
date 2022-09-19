@@ -25,14 +25,12 @@ function BlogProfile({ blog }: Props) {
             </a>
           </Link>
           <Description>
-            <Title>
-              {title.substring(0, 30)}
-              {title.length > 30 && ' ...'}
-            </Title>
+            <Title>{title}</Title>
             <BlogProfileFollow favoritesCount={favoritesCount} followersCount={followersCount} />
-            <ShortWord>{shortWord}</ShortWord>
+            {shortWord && <ShortWord>{shortWord}</ShortWord>}
           </Description>
         </Profile>
+        <StyledHr />
       </Responsive>
     </Section>
   );
@@ -44,11 +42,10 @@ const Responsive = styled(ResponsiveParent)``;
 
 const Profile = styled.div`
   display: flex;
-  justify-content: center;
-  flex-direction: row;
+  align-items: center;
 
   a {
-    max-width: auto;
+    flex: 0 0 auto;
     padding: 2rem;
   }
 
@@ -58,11 +55,8 @@ const Profile = styled.div`
 `;
 
 const Description = styled.div`
-  flex: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: left;
+  flex: 1 1 auto;
+  min-width: 0;
   margin-left: 4rem;
   margin-right: 2rem;
 `;
@@ -71,12 +65,23 @@ const Title = styled.h1`
   margin: 0;
   font-size: 1.5rem;
   color: ${black[800]};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const ShortWord = styled.h3`
   margin: 0;
   font-size: 0.875rem;
   color: ${black[700]};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
+const StyledHr = styled.hr`
+  margin: 0;
+  color: ${black[100]};
 `;
 
 export default BlogProfile;

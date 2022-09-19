@@ -5,12 +5,12 @@ export const mediaQuery = (maxWidth: number) => `
 `;
 
 export const media = {
-  xxlarge: mediaQuery(1920),
-  xlarge: mediaQuery(1440),
-  large: mediaQuery(1024),
-  medium: mediaQuery(768),
-  small: mediaQuery(425),
-  xsmall: mediaQuery(375),
+  laptopLarge: mediaQuery(1440),
+  laptop: mediaQuery(1024),
+  tablet: mediaQuery(768),
+  mobileLarge: mediaQuery(425),
+  mobileMiddle: mediaQuery(375),
+  mobileSmall: mediaQuery(320),
   custom: mediaQuery,
 };
 
