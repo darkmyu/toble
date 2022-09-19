@@ -1,11 +1,6 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../atoms/userState';
-import { logoutUser } from '../../lib/api/authApi';
 import { Blog } from '../../lib/api/types';
 import { ResponsiveParent } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
@@ -16,21 +11,7 @@ interface Props {
 }
 
 function BlogProfile({ blog }: Props) {
-  const router = useRouter();
-  const [me, setMe] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
   const { profileImageUrl, title, shortWord, username, favoritesCount, followersCount } = blog;
-
-  useEffect(() => {
-    user?.username === blog.username ? setMe(true) : setMe(false);
-  }, [blog, user]);
-
-  const onClickLogout = () => {
-    logoutUser().then(() => {
-      setUser(null);
-      router.push('/');
-    });
-  };
 
   return (
     <Section>
@@ -44,15 +25,12 @@ function BlogProfile({ blog }: Props) {
             </a>
           </Link>
           <Description>
-            <Flex>
-              <Title>{title.length > 25 ? `${title.substring(0, 25)} ...` : title}</Title>
-              <div>Icons Component</div>
-            </Flex>
+            <Title>
+              {title.substring(0, 30)}
+              {title.length > 30 && ' ...'}
+            </Title>
             <BlogProfileFollow favoritesCount={favoritesCount} followersCount={followersCount} />
-            <Flex>
-              <ShortWord>{shortWord ? shortWord : ''}</ShortWord>
-              {me && <LogoutButton onClick={onClickLogout}>로그아웃</LogoutButton>}
-            </Flex>
+            <ShortWord>{shortWord}</ShortWord>
           </Description>
         </Profile>
       </Responsive>
@@ -68,7 +46,6 @@ const Profile = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
-  flex-wrap: wrap;
 
   a {
     max-width: auto;
@@ -90,12 +67,6 @@ const Description = styled.div`
   margin-right: 2rem;
 `;
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const Title = styled.h1`
   margin: 0;
   font-size: 1.5rem;
@@ -106,15 +77,6 @@ const ShortWord = styled.h3`
   margin: 0;
   font-size: 0.875rem;
   color: ${black[700]};
-`;
-
-const LogoutButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 0.875rem;
-  font-weight: bold;
-  color: #d65d5d;
-  cursor: pointer;
 `;
 
 export default BlogProfile;
