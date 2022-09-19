@@ -6,13 +6,13 @@ import { useBlog } from './hooks/useBlog';
 function Blog() {
   const router = useRouter();
   const username = router.query.username as string;
-  const { blog, error } = useBlog(username);
+  const { blog, error, me } = useBlog(username);
 
   if (error) return <>Not found Blog</>;
 
   return (
     <Block>
-      <BlogProfile blog={blog} />
+      <BlogProfile blog={blog} me={me} />
     </Block>
   );
 }

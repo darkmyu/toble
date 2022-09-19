@@ -53,6 +53,10 @@ export class UserService {
     return this.userRepository.update(id, { refreshToken: hashedRefreshToken });
   }
 
+  async removeHashedRefreshToken(id: number) {
+    return this.userRepository.update({ id }, { refreshToken: null });
+  }
+
   async findBySocialIdAndProvider(socialId: string, provider: string) {
     return this.userRepository.findOne({
       where: {

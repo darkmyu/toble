@@ -54,6 +54,7 @@ export const useBlogModal = () => {
   };
 
   const onSubmitInputs: SubmitHandler<BlogModalInputs> = data => {
+    data.title = data.title.replace(/ +(?= )/g, '');
     createMutation.mutate(data);
   };
 

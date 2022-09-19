@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { User, userState } from '../atoms/userState';
-import getUser from '../lib/api/authApi';
+import { getUser } from '../lib/api/authApi';
 
 export default function useAuthEffect() {
   const [query, setQuery] = useState(true);

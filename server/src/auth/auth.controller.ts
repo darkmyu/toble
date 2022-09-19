@@ -1,7 +1,18 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { EnvService } from '../env/env.service';
+import { AuthUser } from '../user/decorator/user-decorator';
 import { User } from '../user/model/user.entity';
+import { UserService } from './../user/user.service';
 import { AuthService } from './auth.service';
 import { OAuthRequestDto } from './dto/oauth-request.dto';
 import UserResponseDto from './dto/user-response.dto';
@@ -13,13 +24,12 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly envService: EnvService,
+    private readonly userService: UserService,
   ) {}
 
   @Get('profile')
   @UseGuards(JwtAuthGuard)
-  async auth(@Req() req: Request, @Res() res: Response) {
-    const user = req.user as User;
-
+  async auth(@AuthUser() user: User, @Res() res: Response) {
     return res.status(200).send(new UserResponseDto(user));
   }
 
@@ -37,6 +47,14 @@ export class AuthController {
 
     this.createCookies(res, accessToken, refreshToken);
     return res.redirect(this.envService.getRedirectUrl());
+  }
+
+  @Post('/logout')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(JwtAuthGuard)
+  async logout(@AuthUser() user: User, @Res() res: Response) {
+    await this.userService.removeHashedRefreshToken(user.id);
+    return res.clearCookie('access_token').clearCookie('refresh_token').send();
   }
 
   createCookies(res: Response, accessToken: string, refreshToken: string) {

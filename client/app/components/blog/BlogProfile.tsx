@@ -1,16 +1,31 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '../../atoms/userState';
+import { logoutUser } from '../../lib/api/authApi';
 import { Blog } from '../../lib/api/types';
 import { ResponsiveParent } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
+import BlogProfileFollow from './BlogProfileFollow';
 
 interface Props {
   blog: Blog;
+  me: boolean;
 }
 
-function BlogProfile({ blog }: Props) {
-  const { profileImageUrl, title, shortWord, username } = blog;
+function BlogProfile({ blog, me }: Props) {
+  const router = useRouter();
+  const setUser = useSetRecoilState(userState);
+  const { profileImageUrl, title, shortWord, username, favoritesCount, followersCount } = blog;
+
+  const onClickLogout = () => {
+    logoutUser().then(() => {
+      setUser(null);
+      router.push('/');
+    });
+  };
 
   return (
     <Section>
@@ -23,16 +38,17 @@ function BlogProfile({ blog }: Props) {
               )}
             </a>
           </Link>
-          <ProfileRest>
-            <Description>
-              <h1 className='title'>{title}</h1>
-              <div className='follow'>follow component</div>
-              <h3 className='short-word'>
-                {shortWord ? shortWord : '간단한 자기소개를 작성해보세요!'}
-              </h3>
-            </Description>
-            <div>profile icons & logout button</div>
-          </ProfileRest>
+          <Description>
+            <Flex>
+              <Title>{title.length > 25 ? `${title.substring(0, 25)} ...` : title}</Title>
+              <div>Icons Component</div>
+            </Flex>
+            <BlogProfileFollow favoritesCount={favoritesCount} followersCount={followersCount} />
+            <Flex>
+              <ShortWord>{shortWord ? shortWord : ''}</ShortWord>
+              {me && <LogoutButton onClick={onClickLogout}>로그아웃</LogoutButton>}
+            </Flex>
+          </Description>
         </Profile>
       </Responsive>
     </Section>
@@ -47,8 +63,10 @@ const Profile = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
 
   a {
+    max-width: auto;
     padding: 2rem;
   }
 
@@ -57,32 +75,41 @@ const Profile = styled.div`
   }
 `;
 
-const ProfileRest = styled.div`
+const Description = styled.div`
   flex: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
   margin-left: 4rem;
   margin-right: 2rem;
 `;
 
-const Description = styled.div`
-  .title {
-    margin: 0;
-    color: ${black[800]};
-    font-size: 1.5rem;
-  }
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-  .follow {
-    padding-top: 0.75rem;
-    padding-bottom: 1.75rem;
-  }
+const Title = styled.h1`
+  margin: 0;
+  font-size: 1.5rem;
+  color: ${black[800]};
+`;
 
-  .short-word {
-    margin: 0;
-    font-size: 0.875rem;
-    color: ${black[700]};
-  }
+const ShortWord = styled.h3`
+  margin: 0;
+  font-size: 0.875rem;
+  color: ${black[700]};
+`;
+
+const LogoutButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #d65d5d;
+  cursor: pointer;
 `;
 
 export default BlogProfile;

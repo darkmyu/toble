@@ -4,4 +4,6 @@ export interface Blog {
   shortWord: string;
   profileImageUrl: string;
   title: string;
+  favoritesCount: number;
+  followersCount: number;
 }
