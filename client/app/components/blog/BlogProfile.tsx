@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { userState } from '../../atoms/userState';
 import { logoutUser } from '../../lib/api/authApi';
 import { Blog } from '../../lib/api/types';
@@ -12,13 +13,17 @@ import BlogProfileFollow from './BlogProfileFollow';
 
 interface Props {
   blog: Blog;
-  me: boolean;
 }
 
-function BlogProfile({ blog, me }: Props) {
+function BlogProfile({ blog }: Props) {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState);
+  const [me, setMe] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
   const { profileImageUrl, title, shortWord, username, favoritesCount, followersCount } = blog;
+
+  useEffect(() => {
+    user?.username === blog.username ? setMe(true) : setMe(false);
+  }, [blog, user]);
 
   const onClickLogout = () => {
     logoutUser().then(() => {

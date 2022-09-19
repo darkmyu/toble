@@ -1,13 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { userState } from './../../../atoms/userState';
 import { getBlog } from './../../../lib/api/blogApi';
 import { Blog } from './../../../lib/api/types';
 
 export const useBlog = (username: string) => {
-  const user = useRecoilValue(userState);
-  const [me, setMe] = useState(false);
   const [query, setQuery] = useState(false);
   const [blog, setBlog] = useState<Blog>({
     username: '',
@@ -33,9 +29,5 @@ export const useBlog = (username: string) => {
     }
   }, [data, isLoading, username]);
 
-  useEffect(() => {
-    user?.username === blog?.username ? setMe(true) : setMe(false);
-  }, [blog, user]);
-
-  return { blog, error, me };
+  return { blog, error };
 };
