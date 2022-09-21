@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Blog } from '../../lib/api/types';
 import { ResponsiveParent } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
-import BlogProfileFollow from './BlogProfileFollow';
 
 interface Props {
   blog: Blog;
@@ -26,7 +25,16 @@ function BlogProfile({ blog }: Props) {
           </Link>
           <Description>
             <Title>{title}</Title>
-            <BlogProfileFollow favoritesCount={favoritesCount} followersCount={followersCount} />
+            <Wrapper>
+              <Block>
+                <Count>{favoritesCount}</Count>
+                <Text>팔로우 중</Text>
+              </Block>
+              <Block>
+                <Count>{followersCount}</Count>
+                <Text>팔로워</Text>
+              </Block>
+            </Wrapper>
             {shortWord && <ShortWord>{shortWord}</ShortWord>}
           </Description>
         </Profile>
@@ -79,9 +87,32 @@ const ShortWord = styled.h3`
   white-space: nowrap;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  padding-top: 0.75rem;
+  padding-bottom: 1.75rem;
+  font-weight: bold;
+  font-size: 0.875rem;
+`;
+
+const Block = styled.div`
+  :nth-child(1) {
+    margin-right: 1rem;
+  }
+`;
+
+const Count = styled.span`
+  color: ${black[700]};
+  margin-right: 0.125rem;
+`;
+
+const Text = styled.span`
+  color: ${black[500]};
+`;
+
 const StyledHr = styled.hr`
   margin: 0;
-  color: ${black[100]};
+  border: 1px solid ${black[100]};
 `;
 
 export default BlogProfile;
