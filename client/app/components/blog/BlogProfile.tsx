@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Blog } from '../../lib/api/types';
 import { ResponsiveParent } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
+import { formatNumber } from '../../lib/utils';
 
 interface Props {
   blog: Blog;
@@ -27,11 +28,11 @@ function BlogProfile({ blog }: Props) {
             <Title>{title}</Title>
             <Wrapper>
               <Block>
-                <Count>{favoritesCount}</Count>
+                <Count>{formatNumber(favoritesCount)}</Count>
                 <Text>팔로우 중</Text>
               </Block>
               <Block>
-                <Count>{followersCount}</Count>
+                <Count>{formatNumber(followersCount)}</Count>
                 <Text>팔로워</Text>
               </Block>
             </Wrapper>
