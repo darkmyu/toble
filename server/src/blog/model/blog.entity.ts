@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../user/model/user.entity';
+import { BlogTopic } from './blog-topic.entity';
 
 @Entity()
 export class Blog {
@@ -16,6 +18,9 @@ export class Blog {
 
   @Column()
   userId: number;
+
+  @Column()
+  blogTopicId: number;
 
   @Column()
   title: string;
@@ -31,4 +36,8 @@ export class Blog {
   @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
+
+  @ManyToOne(() => BlogTopic)
+  @JoinColumn()
+  blogTopic: BlogTopic;
 }
