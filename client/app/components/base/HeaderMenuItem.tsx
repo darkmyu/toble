@@ -5,11 +5,11 @@ import { black, personal } from '../../lib/styles/palette';
 
 interface Props {
   href?: string;
-  onClickLogout?: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
 }
 
-function HeaderMenuItem({ href, onClickLogout, children }: Props) {
+function HeaderMenuItem({ href, onClick, children }: Props) {
   if (href) {
     return (
       <Block>
@@ -20,12 +20,14 @@ function HeaderMenuItem({ href, onClickLogout, children }: Props) {
     );
   }
 
-  return <Block onClick={onClickLogout}>{children}</Block>;
+  return (
+    <Block onClick={onClick}>
+      <Anchor>{children}</Anchor>
+    </Block>
+  );
 }
 
 const Block = styled.div`
-  text-align: center;
-  padding: 0.5rem;
   font-size: 0.875rem;
   color: ${black[800]};
   cursor: pointer;
@@ -37,6 +39,9 @@ const Block = styled.div`
 
 const Anchor = styled.a`
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
 `;
 
 export default HeaderMenuItem;

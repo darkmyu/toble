@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
+import { blogModalState } from '../../atoms/blogModalState';
 import { userState } from '../../atoms/userState';
 import { logoutUser } from '../../lib/api/authApi';
 import HeaderMenuItem from './HeaderMenuItem';
@@ -13,6 +14,11 @@ interface Props {
 function HeaderMenu({ display, username }: Props) {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
+  const setBlogModal = useSetRecoilState(blogModalState);
+
+  const onClickBlog = () => {
+    username ? router.push(`/@${username}`) : setBlogModal(true);
+  };
 
   const onClickLogout = () => {
     logoutUser().then(() => {
@@ -25,8 +31,8 @@ function HeaderMenu({ display, username }: Props) {
     <>
       {display && (
         <Wrapper>
-          <HeaderMenuItem href={`/@${username}`}>내 블로그</HeaderMenuItem>
-          <HeaderMenuItem onClickLogout={onClickLogout}>로그아웃</HeaderMenuItem>
+          <HeaderMenuItem onClick={onClickBlog}>내 블로그</HeaderMenuItem>
+          <HeaderMenuItem onClick={onClickLogout}>로그아웃</HeaderMenuItem>
         </Wrapper>
       )}
     </>
