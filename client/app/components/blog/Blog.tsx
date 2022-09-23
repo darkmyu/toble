@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { getBlog } from '../../lib/api/blogApi';
 import BlogProfile from './BlogProfile';
-import { useBlog } from './hooks/useBlog';
 
 function Blog() {
   const router = useRouter();
   const username = router.query.username as string;
-  const { blog, error } = useBlog(username);
+  const { data: blog } = useQuery(['blog', username], () => getBlog(username), {
+    enabled: username ? true : false,
+    refetchOnWindowFocus: false,
+  });
 
-  if (error) return <>Not found Blog</>;
+  if (!blog) return <>Blog is not found</>;
 
   return (
     <Block>

@@ -1,8 +1,9 @@
 import client from './client';
+import { User } from './types';
 
 export const getUser = async () => {
-  const response = await client.get('/api/v1/auth/profile');
-  return response.data;
+  const { data } = await client.get<User>('/api/v1/auth/profile');
+  return data;
 };
 
 export const logoutUser = async () => {

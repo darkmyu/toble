@@ -97,7 +97,7 @@ const Wrapper = styled.div`
 `;
 
 const Block = styled.div`
-  &:nth-child(1) {
+  &:nth-of-type(1) {
     margin-right: 1rem;
   }
 `;

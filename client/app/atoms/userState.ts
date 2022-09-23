@@ -1,13 +1,5 @@
 import { atom } from 'recoil';
-
-export interface User {
-  id: number;
-  username: string;
-  displayName: string;
-  shortWord: string;
-  profileImageUrl: string;
-  email: string;
-}
+import { User } from '../lib/api/types';
 
 export const userState = atom<User | null>({
   key: 'userState',
