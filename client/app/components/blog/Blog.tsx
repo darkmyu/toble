@@ -9,7 +9,6 @@ function Blog() {
   const username = router.query.username as string;
   const { data: blog } = useQuery(['blog', username], () => getBlog(username), {
     enabled: username ? true : false,
-    refetchOnWindowFocus: false,
   });
 
   if (!blog) return <>Blog is not found</>;
