@@ -5,6 +5,7 @@ export interface User {
 }
 
 export interface Blog {
+  bloggerId: number;
   username: string;
   displayName: string;
   shortWord: string;

@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -18,10 +20,26 @@ export class FollowController {
   @Post()
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard)
-  async follow(
+  async create(
     @AuthUser() user: User,
     @Body('followingId') followingId: number,
   ) {
-    await this.followService.follow(user.id, followingId);
+    await this.followService.create(user.id, followingId);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(JwtAuthGuard)
+  async delete(@AuthUser() user: User, @Param('id') followingId: number) {
+    await this.followService.delete(user.id, followingId);
+  }
+
+  @Post('check')
+  @UseGuards(JwtAuthGuard)
+  async check(
+    @AuthUser() user: User,
+    @Body('followingId') followingId: number,
+  ) {
+    return this.followService.check(user.id, followingId);
   }
 }

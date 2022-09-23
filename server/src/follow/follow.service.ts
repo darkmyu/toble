@@ -17,11 +17,11 @@ export class FollowService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async follow(followerId: number, followingId: number) {
-    const userExist = await this.userRepository.findOneBy({ id: followingId });
+  async create(followerId: number, followingId: number) {
+    const following = await this.userRepository.findOneBy({ id: followingId });
 
-    if (!userExist) {
-      throw new NotFoundException('User is not found');
+    if (!following) {
+      throw new NotFoundException('Blogger is not found');
     }
 
     const exist = await this.followRepository.findOneBy({
@@ -34,21 +34,28 @@ export class FollowService {
     }
 
     try {
-      const follower = await this.userRepository.findOneBy({
-        id: followerId,
-      });
-      const following = await this.userRepository.findOneBy({
-        id: followingId,
-      });
       const createdFollow = this.followRepository.create({
-        follower,
-        following,
+        followerId,
+        followingId,
       });
 
       return this.followRepository.save(createdFollow);
     } catch {
       throw new NotFoundException('errors');
     }
+  }
+
+  async delete(followerId: number, followingId: number) {
+    await this.followRepository.delete({ followerId, followingId });
+  }
+
+  async check(followerId: number, followingId: number) {
+    const exist = await this.followRepository.findOneBy({
+      followerId,
+      followingId,
+    });
+
+    return exist ? true : false;
   }
 
   async findFollowersCount(userId: number) {

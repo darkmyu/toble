@@ -8,7 +8,7 @@ function Blog() {
   const router = useRouter();
   const username = router.query.username as string;
   const { data: blog } = useQuery(['blog', username], () => getBlog(username), {
-    enabled: username ? true : false,
+    enabled: !!username,
   });
 
   if (!blog) return <>Blog is not found</>;

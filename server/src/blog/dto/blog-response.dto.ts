@@ -1,6 +1,7 @@
 import { User } from '../../user/model/user.entity';
 
 export class BlogResponseDto {
+  bloggerId: number;
   username: string;
   displayName: string;
   shortWord: string;
@@ -12,6 +13,7 @@ export class BlogResponseDto {
     private favoritesCount: number,
     private followersCount: number,
   ) {
+    this.bloggerId = user.id;
     this.username = user.username;
     this.displayName = user.displayName;
     this.shortWord = user.shortWord;
