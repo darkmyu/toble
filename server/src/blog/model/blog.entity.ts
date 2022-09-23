@@ -19,7 +19,7 @@ export class Blog {
   @Column()
   userId: number;
 
-  @Column()
+  @Column({ nullable: true })
   blogTopicId: number;
 
   @Column()

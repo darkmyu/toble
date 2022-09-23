@@ -21,14 +21,14 @@ export class AuthMiddleware implements NestMiddleware {
     const refreshToken = req.cookies['refresh_token'];
 
     if (accessToken === undefined && refreshToken === undefined) {
-      throw new UnauthorizedException();
+      return next();
     }
 
     if (accessToken === undefined && refreshToken) {
       const { id } = this.jwtService.verify(refreshToken);
 
       if (!id) {
-        throw new UnauthorizedException();
+        return next();
       }
 
       const freshAccessToken = await this.authService.validateRefreshToken(

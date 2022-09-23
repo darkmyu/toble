@@ -9,6 +9,7 @@ import { User } from '../user/model/user.entity';
 import { FollowService } from './../follow/follow.service';
 import { BlogCreateRequestDto } from './dto/blog-create-request.dto';
 import { BlogResponseDto } from './dto/blog-response.dto';
+import { BlogTopic } from './model/blog-topic.entity';
 import { Blog } from './model/blog.entity';
 
 @Injectable()
@@ -18,6 +19,8 @@ export class BlogService {
     private readonly blogRepository: Repository<Blog>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(BlogTopic)
+    private readonly blogTopicRepository: Repository<BlogTopic>,
     private readonly followService: FollowService,
   ) {}
 
@@ -50,13 +53,32 @@ export class BlogService {
       throw new ConflictException('Blog already exists');
     }
 
+    const blogTopic = await this.blogTopicRepository.findOneBy({
+      id: request.blogTopicId,
+    });
+
+    if (!blogTopic) {
+      throw new NotFoundException('Topic is not found');
+    }
+
     try {
-      const createdBlog = this.blogRepository.create({ ...request, user });
+      const createdBlog = this.blogRepository.create({
+        title: request.title,
+        user,
+        blogTopic,
+      });
       await this.blogRepository.save(createdBlog);
       await this.userRepository.update(user.id, { username: request.username });
       return request.username;
     } catch {
       throw new ConflictException('Duplicate userId');
     }
+  }
+
+  async findTopics() {
+    return this.blogTopicRepository
+      .createQueryBuilder('topic')
+      .select(['topic.id', 'topic.name'])
+      .getMany();
   }
 }
