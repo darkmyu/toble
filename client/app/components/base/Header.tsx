@@ -29,7 +29,11 @@ function Header() {
               profileImageUrl={user.profileImageUrl}
               onClickDropdown={onClickDropdown}
             />
-            <HeaderMenu display={display} username={user.username} />
+            <HeaderMenu
+              display={display}
+              username={user.username}
+              onClickDropdown={onClickDropdown}
+            />
           </Wrapper>
         ) : (
           <Right onClick={() => setAuthActive(true)}>회원가입 / 로그인</Right>

@@ -9,15 +9,16 @@ import HeaderMenuItem from './HeaderMenuItem';
 interface Props {
   display: boolean;
   username: string;
+  onClickDropdown: () => void;
 }
 
-function HeaderMenu({ display, username }: Props) {
+function HeaderMenu({ display, username, onClickDropdown }: Props) {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const setBlogModal = useSetRecoilState(blogModalState);
 
   const onClickBlog = () => {
-    username ? router.push(`/@${username}`) : setBlogModal(true);
+    username ? (onClickDropdown(), router.push(`/@${username}`)) : setBlogModal(true);
   };
 
   const onClickLogout = () => {
