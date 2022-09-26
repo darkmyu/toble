@@ -2,28 +2,37 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../user/model/user.entity';
-import { BlogTopic } from './blog-topic.entity';
 
 @Entity()
-export class Blog {
+export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   userId: number;
 
-  @Column({ nullable: true })
-  blogTopicId: number;
-
   @Column()
   title: string;
+
+  @Column('text')
+  content: string;
+
+  @Column({ nullable: true })
+  thumbnail: string | null;
+
+  @Column({ default: 0 })
+  views: number;
+
+  @Column({ default: 0 })
+  likes: number;
+
+  @Column({ type: 'timestamp', default: () => 'now()' })
+  releasedAt: Date;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
@@ -31,11 +40,6 @@ export class Blog {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @ManyToOne(() => User, { cascade: true })
   user: User;
-
-  @ManyToOne(() => BlogTopic)
-  @JoinColumn()
-  blogTopic: BlogTopic;
 }

@@ -20,12 +20,10 @@ export class Follow {
   @Column()
   followingId: number;
 
-  @Column('timestampz')
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column('timestampz')
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })

@@ -37,12 +37,10 @@ export class User {
   @Column({ nullable: true })
   refreshToken: string;
 
-  @Column('timestampz')
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @Column('timestampz')
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @OneToOne(() => Blog, (blog) => blog.user)

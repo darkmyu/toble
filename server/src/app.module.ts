@@ -6,10 +6,15 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { AuthModule } from './auth/auth.module';
 import { BlogModule } from './blog/blog.module';
+import { Blog } from './blog/model/blog.entity';
 import { EnvModule } from './env/env.module';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
-import { UserModule } from './user/user.module';
 import { FollowModule } from './follow/follow.module';
+import { Follow } from './follow/model/follow.entity';
+import { Post } from './post/model/post.entity';
+import { PostModule } from './post/post.module';
+import { User } from './user/model/user.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -24,7 +29,7 @@ import { FollowModule } from './follow/follow.module';
         username: configService.get('USERNAME'),
         password: configService.get('PASSWORD'),
         database: configService.get('DATABASE'),
-        entities: [`${__dirname}/**/*.entity{.js, .ts}`],
+        entities: [User, Blog, Follow, Post],
         autoLoadEntities: true,
         synchronize: true,
         namingStrategy: new SnakeNamingStrategy(),
@@ -36,6 +41,7 @@ import { FollowModule } from './follow/follow.module';
     AuthModule,
     BlogModule,
     FollowModule,
+    PostModule,
   ],
   providers: [
     {
