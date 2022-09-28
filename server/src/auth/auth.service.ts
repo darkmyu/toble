@@ -37,10 +37,7 @@ export class AuthService {
       throw new UnauthorizedException('RefreshToken does not match');
     }
 
-    const accessToken = this.jwtService.sign(
-      { id, sub: 'access_token' },
-      { expiresIn: this.configService.get('ACCESS_TOKEN_EXPIRES_IN') },
-    );
+    const { accessToken } = await this.createToken(id);
 
     return accessToken;
   }

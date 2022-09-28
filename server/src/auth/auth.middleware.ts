@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NestMiddleware,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { NextFunction, Request, Response } from 'express';
 import { EnvService } from '../env/env.service';
@@ -25,26 +21,25 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     if (accessToken === undefined && refreshToken) {
-      const { id } = this.jwtService.verify(refreshToken);
+      try {
+        const { id } = this.jwtService.verify(refreshToken);
+        const freshAccessToken = await this.authService.validateRefreshToken(
+          id,
+          refreshToken,
+        );
 
-      if (!id) {
+        const host = this.envService.getHost();
+
+        res.cookie('access_token', freshAccessToken, {
+          httpOnly: true,
+          domain: host,
+          maxAge: 60 * 60 * 1000,
+        });
+
+        req.cookies['access_token'] = freshAccessToken;
+      } catch {
         return next();
       }
-
-      const freshAccessToken = await this.authService.validateRefreshToken(
-        id,
-        refreshToken,
-      );
-
-      const host = this.envService.getHost();
-
-      res.cookie('access_token', freshAccessToken, {
-        httpOnly: true,
-        domain: host,
-        maxAge: 60 * 60 * 1000,
-      });
-
-      req.cookies['access_token'] = freshAccessToken;
     }
 
     next();
