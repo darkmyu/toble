@@ -1,20 +1,22 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, Post } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { AuthMiddleware } from './auth/auth.middleware';
-import { AuthModule } from './auth/auth.module';
-import { BlogModule } from './blog/blog.module';
-import { Blog } from './blog/model/blog.entity';
+import { BlogModule } from './api//blog/blog.module';
+import { AuthMiddleware } from './api/auth/auth.middleware';
+import { AuthModule } from './api/auth/auth.module';
+import { CommentModule } from './api/comment/comment.module';
+import { FollowModule } from './api/follow/follow.module';
+import { PostModule } from './api/post/post.module';
+import { UserModule } from './api/user/user.module';
+import { Blog } from './entity/blog.entity';
+import { Comment } from './entity/comment.entity';
+import { Follow } from './entity/follow.entity';
+import { PostState } from './entity/post-state.entity';
+import { User } from './entity/user.entity';
 import { EnvModule } from './env/env.module';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
-import { FollowModule } from './follow/follow.module';
-import { Follow } from './follow/model/follow.entity';
-import { Post } from './post/model/post.entity';
-import { PostModule } from './post/post.module';
-import { User } from './user/model/user.entity';
-import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -29,7 +31,7 @@ import { UserModule } from './user/user.module';
         username: configService.get('USERNAME'),
         password: configService.get('PASSWORD'),
         database: configService.get('DATABASE'),
-        entities: [User, Blog, Follow, Post],
+        entities: [User, Blog, Follow, Post, PostState, Comment],
         autoLoadEntities: true,
         synchronize: true,
         namingStrategy: new SnakeNamingStrategy(),
@@ -42,6 +44,7 @@ import { UserModule } from './user/user.module';
     BlogModule,
     FollowModule,
     PostModule,
+    CommentModule,
   ],
   providers: [
     {
