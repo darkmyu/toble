@@ -14,11 +14,11 @@ export class BlogTopic {
   @Column()
   name: string;
 
-  @Column('timestampz')
+  @Column({ type: 'timestamp' })
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column('timestampz')
+  @Column({ type: 'timestamp' })
   @UpdateDateColumn()
   updatedAt: Date;
 }
