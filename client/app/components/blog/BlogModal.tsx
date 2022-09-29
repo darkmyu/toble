@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import CancelIcon from '../../assets/cancel.svg';
 import { black, personal } from '../../lib/styles/palette';
 import transitions from '../../lib/styles/transitions';
-import BlogModalChild from './BlogModalChild';
 import { useBlogModal } from './hooks/useBlogModal';
+import Input from './Input';
+import Select from './Select';
 
 function BlogModal() {
   const {
@@ -16,6 +17,7 @@ function BlogModal() {
     errors,
     onSubmitInputs,
     onClickCancel,
+    topics,
   } = useBlogModal();
 
   const {
@@ -25,6 +27,8 @@ function BlogModal() {
     nameTitle,
     nameDescription,
     namePlaceholder,
+    topicTitle,
+    topicDescription,
   } = inputDescriptions;
 
   const { requiredMessage, maxLengthMessage, patternMessage } = inputErrorMessages;
@@ -43,24 +47,41 @@ function BlogModal() {
             </button>
           </Top>
           <Form onSubmit={handleSubmit(onSubmitInputs)}>
-            <BlogModalChild
-              title={usernameTitle}
-              description={usernameDescription}
-              placeholder={usernamePlaceholder}
-              errorMessage={errors.username?.message || null}
-              {...register('username', {
-                required: { value: true, message: requiredMessage },
-                maxLength: { value: 30, message: maxLengthMessage },
-                pattern: { value: /^[a-z0-9\_]+$/, message: patternMessage },
-              })}
-            />
-            <BlogModalChild
-              title={nameTitle}
-              description={nameDescription}
-              placeholder={namePlaceholder}
-              errorMessage={errors.title?.message || null}
-              {...register('title', { required: { value: true, message: requiredMessage } })}
-            />
+            <FormGroup>
+              <Section>
+                <Title>{usernameTitle}</Title>
+                <Description>{usernameDescription}</Description>
+                <Input
+                  placeholder={usernamePlaceholder}
+                  errorMessage={errors.username?.message || null}
+                  {...register('username', {
+                    required: { value: true, message: requiredMessage },
+                    maxLength: { value: 30, message: maxLengthMessage },
+                    pattern: { value: /^[a-z0-9\_]+$/, message: patternMessage },
+                  })}
+                />
+              </Section>
+              <Section>
+                <Title>{nameTitle}</Title>
+                <Description>{nameDescription}</Description>
+                <Input
+                  placeholder={namePlaceholder}
+                  errorMessage={errors.title?.message || null}
+                  {...register('title', { required: { value: true, message: requiredMessage } })}
+                />
+              </Section>
+              <Section>
+                <Title>{topicTitle}</Title>
+                <Description>{topicDescription}</Description>
+                <Select
+                  topics={topics || null}
+                  errorMessage={errors.blogTopicId?.message || null}
+                  {...register('blogTopicId', {
+                    required: { value: true, message: requiredMessage },
+                  })}
+                />
+              </Section>
+            </FormGroup>
             <Bottom>
               <Button>블로그 만들기</Button>
             </Bottom>
@@ -130,10 +151,6 @@ const Form = styled.form`
   padding-bottom: 6rem;
   margin-left: 5rem;
   margin-right: 5rem;
-
-  div:nth-of-type(2) {
-    margin-top: 3rem;
-  }
 `;
 
 const Bottom = styled.div`
@@ -155,6 +172,29 @@ const Button = styled.button`
   font-size: 1rem;
   border: none;
   cursor: pointer;
+`;
+
+const FormGroup = styled.div`
+  font-weight: bold;
+`;
+
+const Section = styled.section`
+  & + & {
+    margin-top: 3rem;
+  }
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  font-size: 1rem;
+  color: ${black[800]};
+`;
+
+const Description = styled.h3`
+  margin: 0;
+  font-size: 0.875rem;
+  color: ${black[500]};
+  margin-top: 0.25rem;
 `;
 
 export default BlogModal;

@@ -3,45 +3,24 @@ import { forwardRef } from 'react';
 import { black, personal } from '../../lib/styles/palette';
 
 interface Props {
-  title: string;
-  description: string;
   placeholder: string;
   errorMessage: string | null;
 }
 
-const BlogModalChild = forwardRef<HTMLInputElement, Props>(
-  ({ title, description, placeholder, errorMessage, ...rest }: Props, ref) => {
+const Input = forwardRef<HTMLInputElement, Props>(
+  ({ placeholder, errorMessage, ...rest }: Props, ref) => {
     return (
-      <Wrapper>
-        <h1 className='title'>{title}</h1>
-        <h1 className='description'>{description}</h1>
-        <Input placeholder={placeholder} {...rest} ref={ref} />
+      <>
+        <StyledInput placeholder={placeholder} ref={ref} {...rest} />
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      </Wrapper>
+      </>
     );
   }
 );
 
-BlogModalChild.displayName = 'BlogModalChild';
+Input.displayName = 'Input';
 
-const Wrapper = styled.div`
-  font-weight: bold;
-
-  .title {
-    margin: 0;
-    font-size: 1rem;
-    color: ${black[800]};
-  }
-
-  .description {
-    margin: 0;
-    font-size: 0.875rem;
-    color: ${black[500]};
-    margin-top: 0.25rem;
-  }
-`;
-
-const Input = styled.input`
+const StyledInput = styled.input`
   margin: 0;
   margin-top: 1rem;
   padding-top: 1rem;
@@ -69,4 +48,4 @@ const ErrorMessage = styled.div`
   margin-top: 0.5rem;
 `;
 
-export default BlogModalChild;
+export default Input;

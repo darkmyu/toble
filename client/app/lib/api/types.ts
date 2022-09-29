@@ -14,3 +14,8 @@ export interface Blog {
   favoritesCount: number;
   followersCount: number;
 }
+
+export interface Topic {
+  id: number;
+  name: string;
+}
