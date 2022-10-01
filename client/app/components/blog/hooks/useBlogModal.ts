@@ -2,9 +2,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { blogModalState } from '../../../atoms/blogModalState';
 import { createBlog } from '../../../lib/api/blogApi';
+import { userState } from './../../../atoms/userState';
 import { getTopics } from './../../../lib/api/blogApi';
 
 export interface BlogModalInputs {
@@ -32,6 +33,7 @@ const inputErrorMessages = {
 
 export const useBlogModal = () => {
   const [isActive, setActive] = useRecoilState(blogModalState);
+  const setUser = useSetRecoilState(userState);
   const router = useRouter();
 
   const {
@@ -48,8 +50,11 @@ export const useBlogModal = () => {
       console.log(err);
       // router.push('/errors');
     },
-    onSuccess: ({ data: username }: AxiosResponse<{ username: string }>) => {
+    onSuccess: ({ data: username }: AxiosResponse<string>) => {
       setActive(false);
+      setUser(prev => {
+        return prev ? { ...prev, username } : null;
+      });
       router.push(`/@${username}`);
     },
   });
