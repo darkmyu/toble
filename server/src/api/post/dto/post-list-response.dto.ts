@@ -1,7 +1,7 @@
 import { Post } from '../../../entity/post.entity';
 import { PostUserResponseDto } from './post-user-response.dto';
 
-export class PostsResponseDto {
+export class PostListResponseDto {
   id: number;
   title: string;
   description: string;

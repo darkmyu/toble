@@ -37,13 +37,10 @@ export class Post {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE', eager: true })
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 
-  @OneToOne(() => PostState, (postState) => postState.post, {
-    cascade: true,
-    eager: true,
-  })
+  @OneToOne(() => PostState, (postState) => postState.post, { cascade: true })
   postState: PostState;
 }
