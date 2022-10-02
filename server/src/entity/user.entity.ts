@@ -19,9 +19,6 @@ export class User {
   @Column()
   displayName: string;
 
-  @Column({ default: '' })
-  shortWord: string;
-
   @Column()
   profileImageUrl: string;
 

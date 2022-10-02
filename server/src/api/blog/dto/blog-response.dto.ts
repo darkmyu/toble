@@ -16,7 +16,7 @@ export class BlogResponseDto {
     this.bloggerId = user.id;
     this.username = user.username;
     this.displayName = user.displayName;
-    this.shortWord = user.shortWord;
+    this.shortWord = user.blog.shortWord;
     this.profileImageUrl = user.profileImageUrl;
     this.title = user.blog.title;
   }

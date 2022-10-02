@@ -30,7 +30,6 @@ export class UserService {
     try {
       const findUser = await this.userRepository.findOneBy({ id });
       findUser.displayName = request.displayName;
-      findUser.shortWord = request.shortWord;
       findUser.profileImageUrl = request.profileImageUrl;
 
       return this.userRepository.save(findUser);

@@ -25,6 +25,9 @@ export class Blog {
   @Column()
   title: string;
 
+  @Column({ default: '' })
+  shortWord: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
