@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostState } from '../../entity/post-state.entity';
 import { Post } from '../../entity/post.entity';
-import { PostListResponseDto } from './dto/post-list-response.dto';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
+import { PostListResponseDto } from './dto/post-list-response.dto';
 
 @Injectable()
 export class PostService {
@@ -16,11 +16,9 @@ export class PostService {
   ) {}
 
   async findAll() {
-    const findPosts = await this.postRepository
-      .createQueryBuilder('post')
-      .leftJoinAndSelect('post.user', 'user')
-      .leftJoinAndSelect('post.postState', 'postState')
-      .getMany();
+    const findPosts = await this.postRepository.find({
+      relations: { user: true, postState: true },
+    });
 
     const posts = findPosts.map((post) => new PostListResponseDto(post));
     return posts;
