@@ -6,6 +6,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authModalState } from '../../atoms/authModalState';
 import { userState } from '../../atoms/userState';
 import { checkFollow, createFollow, deleteFollow } from '../../lib/api/followApi';
+import { media } from '../../lib/styles/media';
 import { personal } from '../../lib/styles/palette';
 
 interface Props {
@@ -63,6 +64,11 @@ const Button = styled.button`
   margin-left: 2.625rem;
   margin-right: 2.625rem;
   cursor: pointer;
+
+  ${media.tablet} {
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
 
 export default BlogProfileButton;

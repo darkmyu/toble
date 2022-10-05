@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Blog } from '../../lib/api/types';
-import { ResponsiveParent } from '../../lib/styles/media';
+import { media, ResponsiveParent } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
 import { formatNumber } from '../../lib/utils';
 import BlogProfileButton from './BlogProfileButton';
@@ -75,6 +75,17 @@ const Profile = styled.div`
   img {
     border-radius: 50%;
   }
+
+  ${media.tablet} {
+    flex-direction: column;
+    text-align: center;
+
+    a {
+      padding: 0;
+      width: 6rem;
+      height: 6rem;
+    }
+  }
 `;
 
 const Description = styled.div`
@@ -82,6 +93,13 @@ const Description = styled.div`
   min-width: 0;
   margin-left: 4rem;
   margin-right: 2rem;
+
+  ${media.tablet} {
+    margin: 0;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -114,6 +132,10 @@ const Wrapper = styled.div`
   margin-top: 2rem;
   font-weight: bold;
   font-size: 0.875rem;
+
+  ${media.tablet} {
+    justify-content: center;
+  }
 `;
 
 const Block = styled.div`
@@ -140,6 +162,10 @@ const ProfileBottom = styled.div`
   display: flex;
   margin-top: 0.75rem;
   margin-bottom: 2rem;
+
+  ${media.tablet} {
+    justify-content: center;
+  }
 `;
 
 export default BlogProfile;
