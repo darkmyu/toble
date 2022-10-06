@@ -1,16 +1,13 @@
-import Header from '../app/components/base/Header';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../app/atoms/userState';
 import Write from '../app/components/write/Write';
-import useAuthCheckEffect from '../app/hooks/useAuthCheckEffect';
 
 function WritePage() {
-  useAuthCheckEffect();
+  const user = useRecoilValue(userState);
 
-  return (
-    <>
-      <Header />
-      <Write />
-    </>
-  );
+  if (!user) return <>로그인요청컴포넌트</>;
+
+  return <Write />;
 }
 
 export default WritePage;

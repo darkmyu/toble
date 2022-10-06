@@ -12,13 +12,19 @@ const style = css`
   }
 
   html {
+    height: 100%;
     box-sizing: border-box;
   }
 
   body {
     margin: 0;
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
-      Droid Sans, Helvetica Neue, sans-serif;
+    height: 100%;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+      Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
+  #__next {
+    height: 100%;
   }
 
   button,

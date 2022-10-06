@@ -7,6 +7,7 @@ export class PostCreateRequestDto {
   @IsString()
   content: string;
 
+  @IsOptional()
   @IsString()
   description: string;
 

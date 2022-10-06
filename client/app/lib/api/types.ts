@@ -19,3 +19,10 @@ export interface Topic {
   id: number;
   name: string;
 }
+
+export interface PostCreateRequest {
+  title: string;
+  content: string;
+  description?: string;
+  thumbnail?: string;
+}
