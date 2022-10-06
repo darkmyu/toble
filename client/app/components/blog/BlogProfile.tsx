@@ -92,7 +92,7 @@ const Description = styled.div`
   flex: 1 1 auto;
   min-width: 0;
   margin-left: 4rem;
-  margin-right: 2rem;
+  margin-right: 4rem;
 
   ${media.tablet} {
     margin: 0;

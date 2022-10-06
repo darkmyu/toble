@@ -32,6 +32,7 @@ function HeaderMenu({ display, username, onClickDropdown }: Props) {
     <>
       {display && (
         <Wrapper>
+          <HeaderMenuItem href='/write'>글쓰기</HeaderMenuItem>
           <HeaderMenuItem onClick={onClickBlog}>내 블로그</HeaderMenuItem>
           <HeaderMenuItem onClick={onClickLogout}>로그아웃</HeaderMenuItem>
         </Wrapper>
