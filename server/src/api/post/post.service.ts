@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostState } from '../../entity/post-state.entity';
@@ -25,12 +25,21 @@ export class PostService {
   }
 
   async create(userId: number, post: PostCreateRequestDto) {
+    if (!post.description) {
+      post.description = post.content.replace(/<[^>]*>?/g, '').slice(0, 50);
+    }
+
     const createdPost = this.postRepository.create({ ...post, userId });
     const createdPostState = this.postStateRepository.create({
       postId: createdPost.id,
     });
 
     createdPost.postState = createdPostState;
-    await this.postRepository.save(createdPost);
+
+    const savedPost = await this.postRepository.save(createdPost);
+
+    if (!savedPost) {
+      throw new InternalServerErrorException('Post save fail');
+    }
   }
 }
