@@ -14,6 +14,10 @@ function Write() {
   const [content, setContent] = useState('');
   const { onKeyDownCancelEnter, onInputTextareaResize, titleRef } = useWrite();
 
+  const onClickExit = () => {
+    router.back();
+  };
+
   const createPostMutation = useMutation((data: PostCreateRequest) => createPost(data), {
     onSuccess: () => {
       router.push('/');
@@ -45,6 +49,9 @@ function Write() {
           </TitleBlock>
           <WriteEditor content={content} setContent={setContent} />
           <ButtonGroup>
+            <Button onClick={onClickExit} exit>
+              나가기
+            </Button>
             <Button onClick={onSubmitPost}>작성 완료</Button>
           </ButtonGroup>
         </Wrapper>
@@ -97,8 +104,9 @@ const ButtonGroup = styled.div`
   padding: 1rem;
 `;
 
-const Button = styled.button`
-  background: ${personal[800]};
+const Button = styled.button<{ exit?: boolean }>`
+  background: ${props => (props.exit ? black[400] : personal[800])};
+  margin-right: ${props => props.exit && '0.875rem'};
   color: white;
   border: none;
   padding: 0.5rem 2rem;
