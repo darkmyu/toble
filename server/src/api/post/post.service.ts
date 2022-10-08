@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { PostState } from '../../entity/post-state.entity';
 import { Post } from '../../entity/post.entity';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
+import { PostCreateResponseDto } from './dto/post-create-response.dto';
 import { PostListResponseDto } from './dto/post-list-response.dto';
 
 @Injectable()
@@ -41,5 +42,7 @@ export class PostService {
     if (!savedPost) {
       throw new InternalServerErrorException('Post save fail');
     }
+
+    return new PostCreateResponseDto(savedPost.id);
   }
 }

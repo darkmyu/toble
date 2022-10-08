@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms/userState';
 import { createPost } from '../../lib/api/postApi';
 import { PostCreateRequest } from '../../lib/api/types';
 import { ResponsiveParent } from '../../lib/styles/media';
@@ -11,23 +14,24 @@ import WriteEditor from './WriteEditor';
 
 function Write() {
   const router = useRouter();
+  const user = useRecoilValue(userState);
   const [content, setContent] = useState('');
-  const { onKeyDownCancelEnter, onInputTextareaResize, titleRef } = useWrite();
-
-  const onClickExit = () => {
-    router.back();
-  };
+  const { onKeyDownCancelEnter, onInputTextareaResize, titleRef, onClickExit } = useWrite();
 
   const createPostMutation = useMutation((data: PostCreateRequest) => createPost(data), {
-    onSuccess: () => {
-      router.push('/');
+    onError: () => {
+      toast.error('예기치 못한 오류가 발생했어요!');
+    },
+    onSuccess: ({ id }) => {
+      router.push(`/@${user?.username}/${id}`);
     },
   });
 
   const onSubmitPost = () => {
-    // 에러 핸들링 모달 추가 (?)
     if (!titleRef.current) return;
-    if (titleRef.current.value.length === 0) return;
+    if (titleRef.current.value.length === 0) {
+      return toast.error('제목이 비어있어요!');
+    }
 
     const title = titleRef.current.value;
     const description = '';

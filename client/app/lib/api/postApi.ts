@@ -1,6 +1,7 @@
 import client from './client';
-import { PostCreateRequest } from './types';
+import { PostCreateRequest, PostCreateResponse } from './types';
 
 export const createPost = async (data: PostCreateRequest) => {
-  return client.post('/api/v1/posts', data);
+  const response = await client.post<PostCreateResponse>('/api/v1/posts', data);
+  return response.data;
 };

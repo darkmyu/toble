@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
 export const useWrite = () => {
+  const router = useRouter();
   const titleRef = useRef<HTMLTextAreaElement>(null);
 
   const onKeyDownCancelEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -15,5 +17,9 @@ export const useWrite = () => {
     titleRef.current.style.height = titleRef.current?.scrollHeight + 'px';
   };
 
-  return { onKeyDownCancelEnter, onInputTextareaResize, titleRef };
+  const onClickExit = () => {
+    router.back();
+  };
+
+  return { onKeyDownCancelEnter, onInputTextareaResize, titleRef, onClickExit };
 };

@@ -26,3 +26,7 @@ export interface PostCreateRequest {
   description?: string;
   thumbnail?: string;
 }
+
+export interface PostCreateResponse {
+  id: number;
+}
