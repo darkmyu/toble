@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { blogModalState } from '../../atoms/blogModalState';
 import { userState } from '../../atoms/userState';
-import { logoutUser } from '../../lib/api/authApi';
+import { logoutUser } from '../../lib/api/auth';
 import HeaderMenuItem from './HeaderMenuItem';
 
 interface Props {

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/userState';
-import { createPost } from '../../lib/api/postApi';
+import { createPost } from '../../lib/api/post';
 import { PostCreateRequest } from '../../lib/api/types';
 import { ResponsiveParent } from '../../lib/styles/media';
 import { black, personal } from '../../lib/styles/palette';

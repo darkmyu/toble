@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authModalState } from '../../atoms/authModalState';
 import { userState } from '../../atoms/userState';
-import { checkFollow, createFollow, deleteFollow } from '../../lib/api/followApi';
+import { checkFollow, createFollow, deleteFollow } from '../../lib/api/follow';
 import { media } from '../../lib/styles/media';
 import { personal } from '../../lib/styles/palette';
 

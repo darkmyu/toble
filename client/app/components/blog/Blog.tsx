@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { getBlog } from '../../lib/api/blogApi';
+import { getBlog } from '../../lib/api/blog';
 import BlogProfile from './BlogProfile';
 
 function Blog() {

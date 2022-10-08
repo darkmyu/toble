@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { blogModalState } from '../../../atoms/blogModalState';
-import { createBlog } from '../../../lib/api/blogApi';
+import { createBlog } from '../../../lib/api/blog';
 import { userState } from './../../../atoms/userState';
-import { getTopics } from './../../../lib/api/blogApi';
+import { getTopics } from '../../../lib/api/blog';
 
 export interface BlogModalInputs {
   username: string;
