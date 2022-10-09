@@ -7,20 +7,21 @@ export const mediaQuery = (maxWidth: number) => `
 export const media = {
   desktop: mediaQuery(1440),
   laptop: mediaQuery(1024),
-  tablet: mediaQuery(768),
-  mobileLarge: mediaQuery(425),
-  mobileMiddle: mediaQuery(375),
-  mobileSmall: mediaQuery(320),
+  tablet: mediaQuery(870),
+  mobile: mediaQuery(768),
   custom: mediaQuery,
 };
 
 export const ResponsiveParent = styled.div`
-  max-width: 1140px;
+  width: 1140px;
   margin-left: auto;
   margin-right: auto;
 
   ${media.custom(1140)} {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    width: 850px;
+  }
+
+  ${media.tablet} {
+    width: calc(100% - 1.25rem);
   }
 `;

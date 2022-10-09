@@ -19,6 +19,7 @@ export class PostService {
   async findAll() {
     const findPosts = await this.postRepository.find({
       relations: { user: true, postState: true },
+      order: { createdAt: 'DESC' },
     });
 
     const posts = findPosts.map((post) => new PostListResponseDto(post));
@@ -27,7 +28,7 @@ export class PostService {
 
   async create(userId: number, post: PostCreateRequestDto) {
     if (!post.description) {
-      post.description = post.content.replace(/<[^>]*>?/g, '').slice(0, 50);
+      post.description = post.content.replace(/<[^>]*>?/g, '').slice(0, 60);
     }
 
     const createdPost = this.postRepository.create({ ...post, userId });

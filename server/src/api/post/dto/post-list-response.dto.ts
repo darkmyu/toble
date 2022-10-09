@@ -9,8 +9,8 @@ export class PostListResponseDto {
   views: number;
   likes: number;
   commentsCount: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   user: PostUserResponseDto;
 
   constructor(post: Post) {
@@ -21,8 +21,8 @@ export class PostListResponseDto {
     this.views = post.postState.views;
     this.likes = post.postState.likes;
     this.commentsCount = post.postState.commentsCount;
-    this.createdAt = post.createdAt;
-    this.updatedAt = post.updatedAt;
+    this.createdAt = post.createdAt.toString();
+    this.updatedAt = post.updatedAt.toString();
     this.user = new PostUserResponseDto(post.user);
   }
 }

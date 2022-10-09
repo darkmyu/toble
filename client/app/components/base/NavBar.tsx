@@ -15,8 +15,7 @@ function NavBar() {
 }
 
 const Block = styled.nav`
-  padding-top: 6rem;
-  padding-bottom: 0.625rem;
+  margin-top: 6rem;
 
   svg {
     cursor: pointer;

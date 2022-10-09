@@ -20,6 +20,23 @@ export interface Topic {
   name: string;
 }
 
+export interface PostListResponse {
+  id: number;
+  title: string;
+  description: string;
+  thumbnail: string | null;
+  views: number;
+  likes: number;
+  commentsCount: number;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    username: string;
+    displayName: string;
+    profileImageUrl: string;
+  };
+}
+
 export interface PostCreateRequest {
   title: string;
   content: string;
