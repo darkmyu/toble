@@ -4,7 +4,6 @@ import Link from 'next/link';
 import CommentIcon from '../../assets/comment.svg';
 import LikeIcon from '../../assets/like.svg';
 import { PostListResponse } from '../../lib/api/types';
-import { media } from '../../lib/styles/media';
 import { black } from '../../lib/styles/palette';
 import { formatDate, formatNumber } from '../../lib/utils';
 
@@ -63,20 +62,11 @@ function PostCard({ post }: Props) {
 }
 
 const Box = styled.div`
-  width: 270px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 1rem 0.625rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.625rem;
-
-  ${media.tablet} {
-    width: calc(50% - 1.25rem);
-  }
-
-  ${media.mobile} {
-    width: calc(100% - 1.25rem);
-  }
 `;
 
 const StyledAnchor = styled.a`
@@ -89,8 +79,6 @@ const Thumbnail = styled.div`
   cursor: pointer;
 
   img {
-    height: 100%;
-    position: absolute;
     border-radius: 0.625rem;
   }
 `;

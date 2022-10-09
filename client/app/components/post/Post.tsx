@@ -16,7 +16,7 @@ function Post() {
 }
 
 const Main = styled.main`
-  margin-top: 0.625rem;
+  margin-top: 1rem;
 `;
 
 export default Post;

@@ -6,22 +6,20 @@ export const mediaQuery = (maxWidth: number) => `
 
 export const media = {
   desktop: mediaQuery(1440),
+  main: mediaQuery(1140),
   laptop: mediaQuery(1024),
-  tablet: mediaQuery(870),
-  mobile: mediaQuery(768),
+  tablet: mediaQuery(768),
+  mobile: mediaQuery(500),
   custom: mediaQuery,
 };
 
 export const ResponsiveParent = styled.div`
-  width: 1140px;
+  max-width: 1140px;
   margin-left: auto;
   margin-right: auto;
 
-  ${media.custom(1140)} {
-    width: 850px;
-  }
-
-  ${media.tablet} {
-    width: calc(100% - 1.25rem);
+  ${media.main} {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 `;
