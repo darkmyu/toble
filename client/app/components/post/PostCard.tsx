@@ -62,7 +62,6 @@ function PostCard({ post }: Props) {
 }
 
 const Box = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -70,32 +69,35 @@ const Box = styled.div`
 `;
 
 const StyledAnchor = styled.a`
-  text-decoration: none;
+  cursor: pointer;
 `;
 
 const Thumbnail = styled.div`
-  position: relative;
-  padding-top: 70%;
-  cursor: pointer;
+  span {
+    position: relative !important;
 
-  img {
-    border-radius: 0.625rem;
+    img {
+      height: auto !important;
+      position: relative !important;
+      border-radius: 0.625rem;
+    }
   }
 `;
 
 const Content = styled.div`
   padding: 1rem;
   padding-bottom: 2rem;
-  cursor: pointer;
 `;
 
 const Title = styled.h1`
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
   margin: 0;
   font-size: 1rem;
   color: ${black[800]};
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 `;
 
 const Date = styled.div`

@@ -24,18 +24,18 @@ const Responsive = styled(ResponsiveParent)``;
 const Grid = styled.div`
   display: grid;
   gap: 2rem 1.25rem;
-  grid-template-columns: repeat(4, calc((100% - 60px) / 4));
+  grid-template-columns: repeat(4, 1fr);
 
   ${media.main} {
-    grid-template-columns: repeat(3, calc((100% - 40px) / 3));
+    grid-template-columns: repeat(3, 1fr);
   }
 
   ${media.tablet} {
-    grid-template-columns: repeat(2, calc((100% - 20px) / 2));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   ${media.mobile} {
-    grid-template-columns: 100%;
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
