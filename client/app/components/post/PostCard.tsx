@@ -3,12 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import CommentIcon from '../../assets/comment.svg';
 import LikeIcon from '../../assets/like.svg';
-import { PostListResponse } from '../../lib/api/types';
+import { Post } from '../../lib/api/types';
 import { black } from '../../lib/styles/palette';
 import { formatDate, formatNumber } from '../../lib/utils';
 
 interface Props {
-  post: PostListResponse;
+  post: Post;
 }
 
 function PostCard({ post }: Props) {
@@ -77,6 +77,7 @@ const Thumbnail = styled.div`
     position: relative !important;
 
     img {
+      aspect-ratio: 270 / 180;
       height: auto !important;
       position: relative !important;
       border-radius: 0.625rem;

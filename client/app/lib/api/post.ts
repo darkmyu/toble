@@ -2,7 +2,7 @@ import client from './client';
 import { PostCreateRequest, PostCreateResponse, PostListResponse } from './types';
 
 export const getPostList = async () => {
-  const response = await client.get<PostListResponse[]>('/api/v1/posts');
+  const response = await client.get<PostListResponse>('/api/v1/posts');
   return response.data;
 };
 

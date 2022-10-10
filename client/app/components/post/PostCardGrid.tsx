@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { PostListResponse } from '../../lib/api/types';
+import { Post } from '../../lib/api/types';
 import { media, ResponsiveParent } from '../../lib/styles/media';
 import PostCard from './PostCard';
 
 interface Props {
-  posts: PostListResponse[];
+  posts: Post[];
 }
 
 function PostCardGrid({ posts }: Props) {

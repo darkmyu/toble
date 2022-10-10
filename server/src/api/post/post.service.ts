@@ -6,6 +6,7 @@ import { Post } from '../../entity/post.entity';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
 import { PostCreateResponseDto } from './dto/post-create-response.dto';
 import { PostListResponseDto } from './dto/post-list-response.dto';
+import { PostResponseDto } from './dto/post-response.dto';
 
 @Injectable()
 export class PostService {
@@ -22,8 +23,11 @@ export class PostService {
       order: { createdAt: 'DESC' },
     });
 
-    const posts = findPosts.map((post) => new PostListResponseDto(post));
-    return posts;
+    const posts = findPosts.map(
+      ({ content, ...post }) => new PostResponseDto(post),
+    );
+
+    return new PostListResponseDto(posts);
   }
 
   async create(userId: number, post: PostCreateRequestDto) {

@@ -20,9 +20,10 @@ export interface Topic {
   name: string;
 }
 
-export interface PostListResponse {
+export interface Post {
   id: number;
   title: string;
+  content: string;
   description: string;
   thumbnail: string | null;
   views: number;
@@ -35,6 +36,10 @@ export interface PostListResponse {
     displayName: string;
     profileImageUrl: string;
   };
+}
+
+export interface PostListResponse {
+  posts: Post[];
 }
 
 export interface PostCreateRequest {

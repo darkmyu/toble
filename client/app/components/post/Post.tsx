@@ -4,13 +4,13 @@ import { getPostList } from '../../lib/api/post';
 import PostCardGrid from './PostCardGrid';
 
 function Post() {
-  const { data: posts } = useQuery(['getPostList'], () => getPostList());
+  const { data } = useQuery(['getPostList'], () => getPostList());
 
-  if (!posts) return null;
+  if (!data) return null;
 
   return (
     <Main>
-      <PostCardGrid posts={posts} />
+      <PostCardGrid posts={data.posts} />
     </Main>
   );
 }
