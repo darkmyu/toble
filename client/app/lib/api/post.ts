@@ -1,9 +1,13 @@
 import client from './client';
-import { PostCreateRequest, PostCreateResponse, PostListResponse } from './types';
+import { PageResponse, Post, PostCreateRequest, PostCreateResponse } from './types';
 
-export const getPostList = async () => {
-  const response = await client.get<PostListResponse>('/api/v1/posts');
-  return response.data;
+export const getPostList = async (page: number, size: number) => {
+  const response = await client.get<PageResponse<Post>>('/api/v1/posts', {
+    params: { page, size },
+  });
+  const { ...rest } = response.data;
+
+  return { ...rest, nextPage: page + 1 };
 };
 
 export const createPost = async (data: PostCreateRequest) => {

@@ -38,10 +38,6 @@ export interface Post {
   };
 }
 
-export interface PostListResponse {
-  posts: Post[];
-}
-
 export interface PostCreateRequest {
   title: string;
   content: string;
@@ -51,4 +47,13 @@ export interface PostCreateRequest {
 
 export interface PostCreateResponse {
   id: number;
+}
+
+export interface PageResponse<T> {
+  page: number;
+  size: number;
+  totalCount: number;
+  totalPage: number;
+  isLast: boolean;
+  items: T[];
 }

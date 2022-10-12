@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { User } from '../../entity/user.entity';
 import { AuthUser } from '../user/decorator/user-decorator';
 import { JwtAuthGuard } from './../auth/guard/jwt-auth.guard';
@@ -10,8 +10,8 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Get()
-  async findAll() {
-    return this.postService.findAll();
+  async findAll(@Query('page') page: number, @Query('size') size: number) {
+    return this.postService.findAll(page, size);
   }
 
   @Post()

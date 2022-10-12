@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostState } from '../../entity/post-state.entity';
 import { Post } from '../../entity/post.entity';
+import { Page } from '../../utils/page';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
 import { PostCreateResponseDto } from './dto/post-create-response.dto';
-import { PostListResponseDto } from './dto/post-list-response.dto';
 import { PostResponseDto } from './dto/post-response.dto';
 
 @Injectable()
@@ -17,17 +17,26 @@ export class PostService {
     private readonly postStateRepository: Repository<PostState>,
   ) {}
 
-  async findAll() {
-    const findPosts = await this.postRepository.find({
-      relations: { user: true, postState: true },
-      order: { createdAt: 'DESC' },
-    });
+  async findAll(page: number, size: number) {
+    const offset = (page - 1) * size;
+
+    const query = this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.user', 'user')
+      .leftJoinAndSelect('post.postState', 'postState')
+      .limit(size)
+      .offset(offset)
+      .orderBy('post.createdAt', 'DESC');
+
+    const findPosts = await query.getMany();
 
     const posts = findPosts.map(
       ({ content, ...post }) => new PostResponseDto(post),
     );
 
-    return new PostListResponseDto(posts);
+    const totalCount = await this.postRepository.count();
+
+    return new Page<PostResponseDto>(totalCount, page, size, posts);
   }
 
   async create(userId: number, post: PostCreateRequestDto) {
