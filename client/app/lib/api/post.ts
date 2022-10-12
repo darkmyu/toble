@@ -5,9 +5,8 @@ export const getPostList = async (page: number, size: number) => {
   const response = await client.get<PageResponse<Post>>('/api/v1/posts', {
     params: { page, size },
   });
-  const { ...rest } = response.data;
 
-  return { ...rest, nextPage: page + 1 };
+  return { ...response.data, nextPage: page + 1 };
 };
 
 export const createPost = async (data: PostCreateRequest) => {
