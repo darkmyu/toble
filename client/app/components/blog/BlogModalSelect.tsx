@@ -7,7 +7,7 @@ interface Props {
   errorMessage: string | null;
 }
 
-const Select = forwardRef<HTMLSelectElement, Props>(
+const BlogModalSelect = forwardRef<HTMLSelectElement, Props>(
   ({ topics, errorMessage, ...rest }: Props, ref) => {
     return (
       <>
@@ -25,7 +25,7 @@ const Select = forwardRef<HTMLSelectElement, Props>(
   }
 );
 
-Select.displayName = 'Select';
+BlogModalSelect.displayName = 'BlogModalSelect';
 
 const StyledSelect = styled.select`
   margin-top: 1rem;
@@ -39,4 +39,4 @@ const ErrorMessage = styled.div`
   margin-top: 0.5rem;
 `;
 
-export default Select;
+export default BlogModalSelect;

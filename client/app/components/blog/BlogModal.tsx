@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import CancelIcon from '../../assets/cancel.svg';
 import { black, personal } from '../../lib/styles/palette';
 import transitions from '../../lib/styles/transitions';
+import Input from '../common/Input';
+import BlogModalSelect from './BlogModalSelect';
 import { useBlogModal } from './hooks/useBlogModal';
-import Input from './Input';
-import Select from './Select';
 
 function BlogModal() {
   const {
@@ -73,7 +73,7 @@ function BlogModal() {
               <Section>
                 <Title>{topicTitle}</Title>
                 <Description>{topicDescription}</Description>
-                <Select
+                <BlogModalSelect
                   topics={topics || null}
                   errorMessage={errors.blogTopicId?.message || null}
                   {...register('blogTopicId', {
