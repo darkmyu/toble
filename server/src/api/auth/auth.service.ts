@@ -51,7 +51,7 @@ export class AuthService {
       { expiresIn: this.configService.get('ACCESS_TOKEN_EXPIRES_IN') },
     );
     const refreshToken = this.jwtService.sign(
-      { id, sub: 'refresh_token' },
+      { id, date: Date.now(), sub: 'refresh_token' },
       { expiresIn: this.configService.get('REFRESH_TOKEN_EXPIRES_IN') },
     );
 
