@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from '../../entity/user.entity';
 import { AuthUser } from '../user/decorator/user-decorator';
 import { JwtAuthGuard } from './../auth/guard/jwt-auth.guard';
@@ -12,6 +20,11 @@ export class PostController {
   @Get()
   async findAll(@Query('page') page: number, @Query('size') size: number) {
     return this.postService.findAll(page, size);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: number) {
+    return this.postService.findOne(id);
   }
 
   @Post()

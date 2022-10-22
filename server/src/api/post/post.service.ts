@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostState } from '../../entity/post-state.entity';
@@ -37,6 +41,19 @@ export class PostService {
     const totalCount = await this.postRepository.count();
 
     return new Page<PostResponseDto>(totalCount, page, size, posts);
+  }
+
+  async findOne(id: number) {
+    const findPost = await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.user', 'user')
+      .leftJoinAndSelect('post.postState', 'postState')
+      .where('post.id = :id', { id })
+      .getOne();
+
+    if (!findPost) throw new NotFoundException('Post is not found');
+
+    return new PostResponseDto(findPost);
   }
 
   async create(userId: number, post: PostCreateRequestDto) {
