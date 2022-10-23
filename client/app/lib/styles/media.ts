@@ -19,7 +19,7 @@ export const ResponsiveParent = styled.div`
   margin-right: auto;
 
   ${media.main} {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 `;

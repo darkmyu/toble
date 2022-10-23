@@ -58,7 +58,7 @@ export class PostService {
 
   async create(userId: number, post: PostCreateRequestDto) {
     if (!post.description) {
-      post.description = post.content.replace(/<[^>]*>?/g, '').slice(0, 60);
+      post.description = post.content.replace(/<[^>]*>?/g, '').slice(0, 80);
     }
 
     const createdPost = this.postRepository.create({ ...post, userId });
