@@ -17,9 +17,4 @@ export const ResponsiveParent = styled.div`
   max-width: 1140px;
   margin-left: auto;
   margin-right: auto;
-
-  ${media.main} {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
 `;

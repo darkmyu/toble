@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
-import BookmarkIcon from '../../assets/bookmark.svg';
-import CopyIcon from '../../assets/copy.svg';
-import DotIcon from '../../assets/dot.svg';
 import { Post } from '../../lib/api/types';
 import { black } from '../../lib/styles/palette';
 import { formatDate } from '../../lib/utils';
+import BookmarkIconButton from '../icon/BookmarkIconButton';
+import { CopyLink, Dot } from '../icon/vector';
 
 interface Props {
   post: Post;
@@ -35,9 +34,9 @@ function PostViewHeader({ post }: Props) {
           </Info>
         </Profile>
         <Service>
-          <BookmarkIcon />
-          <CopyIcon />
-          <DotIcon />
+          <BookmarkIconButton size={24} isActive={false} />
+          <CopyLink />
+          <Dot />
         </Service>
       </Box>
     </Section>
@@ -63,6 +62,7 @@ const Box = styled.div`
 const Profile = styled.div`
   display: flex;
   align-items: center;
+  gap: 0.875rem;
 `;
 
 const Anchor = styled.a`
@@ -80,7 +80,6 @@ const Info = styled.div`
   justify-content: space-around;
   flex-direction: column;
   font-weight: bold;
-  margin-left: 0.875rem;
 `;
 
 const DisplayName = styled.span`
@@ -96,10 +95,11 @@ const CreatedAt = styled.span`
 const Service = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
 
   svg {
+    color: ${black[500]};
     cursor: pointer;
-    margin-left: 1rem;
   }
 `;
 

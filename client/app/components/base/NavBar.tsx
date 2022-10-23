@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import MenuIcon from '../../assets/menu.svg';
-import SearchIcon from '../../assets/search.svg';
 import { ResponsiveParent } from '../../lib/styles/media';
+import { black } from '../../lib/styles/palette';
+import { Menu, Search } from '../icon/vector';
 
 function NavBar() {
   return (
     <Block>
       <Responsive>
-        <MenuIcon />
-        <SearchIcon />
+        <Menu />
+        <Search />
       </Responsive>
     </Block>
   );
@@ -18,6 +18,7 @@ const Block = styled.nav`
   margin-top: 6rem;
 
   svg {
+    color: ${black[800]};
     cursor: pointer;
   }
 `;

@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
-import CommentIcon from '../../assets/comment.svg';
-import LikeIcon from '../../assets/like.svg';
 import { Post } from '../../lib/api/types';
 import { black } from '../../lib/styles/palette';
 import { formatDate, formatNumber } from '../../lib/utils';
+import { Comment, Like } from '../icon/vector';
 
 interface Props {
   post: Post;
@@ -48,11 +47,11 @@ function PostCard({ post }: Props) {
         </Link>
         <State>
           <StateBlock>
-            <CommentIcon />
+            <Comment />
             {formatNumber(post.commentsCount)}
           </StateBlock>
           <StateBlock>
-            <LikeIcon />
+            <Like />
             {formatNumber(post.likes)}
           </StateBlock>
         </State>
@@ -154,19 +153,13 @@ const State = styled.div`
   font-weight: bold;
   font-size: 0.75rem;
   color: ${black[500]};
-
-  div:nth-of-type(1) {
-    margin-right: 1rem;
-  }
+  gap: 1rem;
 `;
 
 const StateBlock = styled.div`
   display: flex;
   align-items: center;
-
-  svg {
-    margin-right: 0.375rem;
-  }
+  gap: 0.375rem;
 `;
 
 export default PostCard;

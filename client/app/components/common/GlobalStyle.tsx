@@ -14,6 +14,8 @@ const style = css`
   html {
     height: 100%;
     box-sizing: border-box;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   body {

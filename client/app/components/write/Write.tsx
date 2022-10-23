@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/userState';
 import { createPost } from '../../lib/api/post';
 import { PostCreateRequest } from '../../lib/api/types';
-import { media, ResponsiveParent } from '../../lib/styles/media';
+import { ResponsiveParent } from '../../lib/styles/media';
 import { black, personal } from '../../lib/styles/palette';
 import { useWrite } from './hooks/useWrite';
 import WriteEditor from './WriteEditor';
@@ -73,11 +73,6 @@ const Main = styled.main`
 const Responsive = styled(ResponsiveParent)`
   max-width: 768px;
   height: 100%;
-
-  ${media.main} {
-    margin: auto;
-    padding: 0 1rem;
-  }
 `;
 
 const Wrapper = styled.div`
