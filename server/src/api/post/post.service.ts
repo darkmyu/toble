@@ -24,15 +24,12 @@ export class PostService {
   async findAll(page: number, size: number) {
     const offset = (page - 1) * size;
 
-    const query = this.postRepository
-      .createQueryBuilder('post')
-      .leftJoinAndSelect('post.user', 'user')
-      .leftJoinAndSelect('post.postState', 'postState')
-      .limit(size)
-      .offset(offset)
-      .orderBy('post.createdAt', 'DESC');
-
-    const findPosts = await query.getMany();
+    const findPosts = await this.postRepository.find({
+      relations: { user: true, postState: true },
+      take: size,
+      skip: offset,
+      order: { createdAt: 'DESC' },
+    });
 
     const posts = findPosts.map(
       ({ content, ...post }) => new PostResponseDto(post),
@@ -44,12 +41,10 @@ export class PostService {
   }
 
   async findOne(id: number) {
-    const findPost = await this.postRepository
-      .createQueryBuilder('post')
-      .leftJoinAndSelect('post.user', 'user')
-      .leftJoinAndSelect('post.postState', 'postState')
-      .where('post.id = :id', { id })
-      .getOne();
+    const findPost = await this.postRepository.findOne({
+      relations: { user: true, postState: true },
+      where: { id },
+    });
 
     if (!findPost) throw new NotFoundException('Post is not found');
 

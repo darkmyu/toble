@@ -26,11 +26,10 @@ export class BlogService {
 
   async findOne(username: string) {
     try {
-      const user = await this.userRepository
-        .createQueryBuilder('user')
-        .leftJoinAndSelect('user.blog', 'blog')
-        .where('user.username = :username', { username })
-        .getOne();
+      const user = await this.userRepository.findOne({
+        relations: { blog: true },
+        where: { username },
+      });
 
       const favoritesCount = await this.followService.findFavoritesCount(
         user.id,
@@ -76,9 +75,8 @@ export class BlogService {
   }
 
   async findTopics() {
-    return this.blogTopicRepository
-      .createQueryBuilder('topic')
-      .select(['topic.id', 'topic.name'])
-      .getMany();
+    return this.blogTopicRepository.find({
+      select: { id: true, name: true },
+    });
   }
 }

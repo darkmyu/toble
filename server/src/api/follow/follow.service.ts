@@ -59,18 +59,10 @@ export class FollowService {
   }
 
   async findFollowersCount(userId: number) {
-    return this.followRepository
-      .createQueryBuilder('follow')
-      .select('follow')
-      .where('follow.followingId = :followingId', { followingId: userId })
-      .getCount();
+    return this.followRepository.countBy({ followingId: userId });
   }
 
   async findFavoritesCount(userId: number) {
-    return this.followRepository
-      .createQueryBuilder('follow')
-      .select('follow')
-      .where('follow.followerId = :followerId', { followerId: userId })
-      .getCount();
+    return this.followRepository.countBy({ followerId: userId });
   }
 }
