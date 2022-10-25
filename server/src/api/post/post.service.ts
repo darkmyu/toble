@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { PostState } from '../../entity/post-state.entity';
 import { Post } from '../../entity/post.entity';
 import { Page } from '../../utils/page';
+import { Blog } from './../../entity/blog.entity';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
 import { PostCreateResponseDto } from './dto/post-create-response.dto';
 import { PostResponseDto } from './dto/post-response.dto';
@@ -15,6 +16,8 @@ import { PostResponseDto } from './dto/post-response.dto';
 @Injectable()
 export class PostService {
   constructor(
+    @InjectRepository(Blog)
+    private readonly blogRepository: Repository<Blog>,
     @InjectRepository(Post)
     private readonly postRepository: Repository<Post>,
     @InjectRepository(PostState)
@@ -52,6 +55,12 @@ export class PostService {
   }
 
   async create(userId: number, post: PostCreateRequestDto) {
+    const findBlog = await this.blogRepository.findOneBy({ userId });
+
+    if (!findBlog) {
+      throw new NotFoundException('Blog is not found');
+    }
+
     if (!post.description) {
       post.description = post.content.replace(/<[^>]*>?/g, '').slice(0, 80);
     }
