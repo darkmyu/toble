@@ -1,8 +1,7 @@
-import { BlogModalInputs } from '../../components/blog/hooks/useBlogModal';
 import client from './client';
-import { Blog, Topic } from './types';
+import { Blog, BlogCreateRequest, Topic } from './types';
 
-export const createBlog = async (data: BlogModalInputs) => {
+export const createBlog = async (data: BlogCreateRequest) => {
   return client.post('/api/v1/blogs', data);
 };
 

@@ -14,13 +14,13 @@ function Blog() {
   if (!blog) return <>Blog is not found</>;
 
   return (
-    <Block>
+    <Main>
       <BlogProfile blog={blog} />
-    </Block>
+    </Main>
   );
 }
 
-const Block = styled.main`
+const Main = styled.main`
   padding-top: 10rem;
 `;
 

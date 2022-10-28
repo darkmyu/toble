@@ -62,13 +62,13 @@ export class BlogService {
 
     try {
       const createdBlog = this.blogRepository.create({
-        title: request.title,
+        title: request.title.replace(/ +(?= )/g, ''),
         user,
         blogTopic,
       });
       await this.blogRepository.save(createdBlog);
       await this.userRepository.update(user.id, { username: request.username });
-      return request.username;
+      return { username: request.username };
     } catch {
       throw new ConflictException('Duplicate userId');
     }

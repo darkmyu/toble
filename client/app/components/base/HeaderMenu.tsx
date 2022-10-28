@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
-import { blogModalState } from '../../atoms/blogModalState';
 import { userState } from '../../atoms/userState';
 import { logoutUser } from '../../lib/api/auth';
 import HeaderMenuItem from './HeaderMenuItem';
@@ -15,10 +14,9 @@ interface Props {
 function HeaderMenu({ display, username, onClickDropdown }: Props) {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
-  const setBlogModal = useSetRecoilState(blogModalState);
 
   const onClickBlog = () => {
-    username ? (onClickDropdown(), router.push(`/@${username}`)) : setBlogModal(true);
+    username ? (onClickDropdown(), router.push(`/@${username}`)) : router.push('/blog/create');
   };
 
   const onClickLogout = () => {

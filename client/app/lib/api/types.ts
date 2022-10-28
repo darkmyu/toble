@@ -15,6 +15,16 @@ export interface Blog {
   followersCount: number;
 }
 
+export interface BlogCreateRequest {
+  username: string;
+  title: string;
+  blogTopicId: number;
+}
+
+export interface BlogCreateResponse {
+  username: string;
+}
+
 export interface Topic {
   id: number;
   name: string;
