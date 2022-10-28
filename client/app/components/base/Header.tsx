@@ -46,6 +46,9 @@ function Header() {
 const Block = styled.header`
   height: 4rem;
   background: white;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  z-index: 100;
 `;
 
 const Responsive = styled(ResponsiveParent)`

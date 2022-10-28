@@ -1,12 +1,11 @@
-import Header from '../../app/components/base/Header';
+import MainLayout from '../../app/components/layout/MainLayout';
 import PostView from '../../app/components/post/PostView';
 
 function PostPage() {
   return (
-    <>
-      <Header />
+    <MainLayout>
       <PostView />
-    </>
+    </MainLayout>
   );
 }
 

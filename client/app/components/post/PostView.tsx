@@ -14,17 +14,17 @@ function PostView() {
   if (!post) return <>*Add page is not found component</>;
 
   return (
-    <Main>
+    <Wrapper>
       <Responsive>
         <PostViewHeader post={post} />
         <PostViewContent content={post.content} />
       </Responsive>
-    </Main>
+    </Wrapper>
   );
 }
 
-const Main = styled.main`
-  margin-top: 9rem;
+const Wrapper = styled.div`
+  margin-top: 4rem;
 `;
 
 const Responsive = styled(ResponsiveParent)`

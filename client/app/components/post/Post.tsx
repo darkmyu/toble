@@ -3,6 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { getPostList } from '../../lib/api/post';
 import { useIntersect } from '../../lib/hooks/useIntersect';
+import NavBar from '../base/NavBar';
 import PostCardGrid from './PostCardGrid';
 
 function Post() {
@@ -27,16 +28,13 @@ function Post() {
   if (!data) return null;
 
   return (
-    <Main>
+    <>
+      <NavBar />
       <PostCardGrid posts={posts} />
       <Target ref={ref} />
-    </Main>
+    </>
   );
 }
-
-const Main = styled.main`
-  margin-top: 1rem;
-`;
 
 const Target = styled.div`
   height: 1px;

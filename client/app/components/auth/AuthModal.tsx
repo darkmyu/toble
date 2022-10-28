@@ -39,7 +39,7 @@ const Block = styled.div`
   height: 100%;
   opacity: 0.3;
   background: black;
-  z-index: 100;
+  z-index: 200;
 `;
 
 const Wrapper = styled.div<{ isActive: boolean }>`

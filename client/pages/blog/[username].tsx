@@ -1,12 +1,11 @@
-import Header from '../../app/components/base/Header';
 import Blog from '../../app/components/blog/Blog';
+import MainLayout from '../../app/components/layout/MainLayout';
 
 function BlogPage() {
   return (
-    <>
-      <Header />
+    <MainLayout>
       <Blog />
-    </>
+    </MainLayout>
   );
 }
 

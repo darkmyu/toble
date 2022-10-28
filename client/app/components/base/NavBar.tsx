@@ -15,7 +15,8 @@ function NavBar() {
 }
 
 const Block = styled.nav`
-  margin-top: 6rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 
   svg {
     color: ${black[800]};

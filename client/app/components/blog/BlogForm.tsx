@@ -50,7 +50,7 @@ function BlogForm() {
   };
 
   return (
-    <Main>
+    <Wrapper>
       <Responsive>
         <HeaderWrapper>
           <AutoImage src='/images/dog.png' width={320} />
@@ -90,11 +90,11 @@ function BlogForm() {
           <StyledButton>블로그 만들기</StyledButton>
         </Form>
       </Responsive>
-    </Main>
+    </Wrapper>
   );
 }
 
-const Main = styled.main`
+const Wrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -159,6 +159,7 @@ const InputWrapper = styled.div`
   flex-direction: column;
   gap: 4rem;
   margin: 5rem 4rem;
+  margin-bottom: 9rem;
 
   ${media.tablet} {
     margin-left: 0;
