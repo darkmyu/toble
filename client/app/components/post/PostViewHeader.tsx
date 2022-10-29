@@ -34,7 +34,7 @@ function PostViewHeader({ post }: Props) {
           </Info>
         </Profile>
         <Service>
-          <BookmarkIconButton size={24} isActive={false} />
+          <BookmarkIconButton size={20} isActive={false} />
           <CopyLink />
           <Dot />
         </Service>
