@@ -67,6 +67,8 @@ function Write() {
 const Main = styled.main`
   padding-top: 6.25rem;
   padding-bottom: 6.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   height: 100%;
 `;
 
@@ -106,11 +108,11 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding: 1rem;
+  gap: 0.875rem;
 `;
 
 const Button = styled.button<{ exit?: boolean }>`
   background: ${props => (props.exit ? black[400] : personal[800])};
-  margin-right: ${props => props.exit && '0.875rem'};
   color: white;
   border: none;
   padding: 0.5rem 2rem;

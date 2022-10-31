@@ -1,34 +1,87 @@
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import 'react-quill/dist/quill.snow.css';
+import { editorStyles } from '../../lib/styles';
+import { black } from '../../lib/styles/palette';
 
 interface Props {
   content: string;
   setContent: Dispatch<SetStateAction<string>>;
 }
 
-const QuillWrapper = dynamic(() => import('react-quill'), {
+const QuillEditor = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <></>,
 });
 
 function WriteEditor({ content, setContent }: Props) {
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: '1' }, { header: '2' }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image'],
+        ],
+        handlers: { image: null },
+      },
+    }),
+    []
+  );
+
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'link',
+    'image',
+  ];
+
   return (
     <Block>
-      <QuillWrapper theme='snow' value={content} onChange={setContent} />
+      <QuillEditor
+        theme='snow'
+        value={content}
+        onChange={setContent}
+        modules={modules}
+        formats={formats}
+      />
     </Block>
   );
 }
 
 const Block = styled.div`
-  padding-top: 3rem;
-  flex: 1 1 auto;
+  height: 100%;
+  margin-top: 3rem;
 
-  .quill,
-  .ql-container {
-    font-size: 1rem;
-    height: calc(100% - 42px);
+  .quill {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .ql-toolbar {
+      border: none;
+      border-bottom: 1px solid ${black[100]};
+    }
+
+    .ql-container {
+      position: relative;
+      font-size: 1rem;
+      border: none;
+      margin-top: 1rem;
+      border-bottom: 1px solid ${black[100]};
+
+      .ql-editor {
+        padding: 0;
+        ${editorStyles};
+      }
+    }
   }
 `;
 

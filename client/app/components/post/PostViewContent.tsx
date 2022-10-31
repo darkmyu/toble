@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { editorStyles } from '../../lib/styles';
 
 interface Props {
   content: string;
@@ -16,6 +17,8 @@ const Section = styled.section`
   margin-top: 4rem;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  ${editorStyles}
+`;
 
 export default PostViewContent;
