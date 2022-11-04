@@ -58,6 +58,7 @@ function WriteEditor({ content, setContent }: Props) {
 
 const Block = styled.div`
   height: 100%;
+  min-height: 0px;
   margin-top: 3rem;
 
   .quill {
@@ -71,11 +72,11 @@ const Block = styled.div`
     }
 
     .ql-container {
+      min-height: 0px;
       position: relative;
       font-size: 1rem;
       border: none;
       margin-top: 1rem;
-      border-bottom: 1px solid ${black[100]};
 
       .ql-editor {
         padding: 0;

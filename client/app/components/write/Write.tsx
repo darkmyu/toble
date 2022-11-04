@@ -104,11 +104,16 @@ const Textarea = styled.textarea`
 `;
 
 const ButtonGroup = styled.div`
+  position: fixed;
+  width: 100%;
+  left: 0px;
+  bottom: 0px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 1rem;
   gap: 0.875rem;
+  background: whitesmoke;
 `;
 
 const Button = styled.button<{ exit?: boolean }>`
