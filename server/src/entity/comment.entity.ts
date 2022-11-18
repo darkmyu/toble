@@ -20,16 +20,13 @@ export class Comment {
   postId: number;
 
   @Column({ nullable: true })
-  parentId: number | null;
+  parentId: number;
 
   @Column({ nullable: true })
-  mentionUserId: number | null;
+  mentionUserId: number;
 
   @Column('text')
   content: string;
-
-  @Column({ default: 0 })
-  subCommentsCount: number;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
