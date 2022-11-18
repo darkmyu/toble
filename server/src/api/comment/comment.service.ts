@@ -48,13 +48,11 @@ export class CommentService {
       subCommentMap.set(comment.parentId, newArray);
     });
 
-    const tempComments = comments.filter(
-      (comment) => comment.parentId === null,
-    );
-
-    return tempComments.map(
-      (comment) =>
-        new CommentResponseDto(comment, subCommentMap.get(comment.id) ?? []),
-    );
+    return comments
+      .filter((comment) => comment.parentId === null)
+      .map(
+        (comment) =>
+          new CommentResponseDto(comment, subCommentMap.get(comment.id) ?? []),
+      );
   }
 }
