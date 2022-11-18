@@ -8,7 +8,6 @@ export class CommentResponseDto {
   subComments: SubCommentResponseDto[];
   subCommentsCount: number;
   writer: UserResponseDto;
-  mentionUser: UserResponseDto | null;
 
   constructor(comment: Comment, subComments: SubCommentResponseDto[]) {
     this.id = comment.id;
@@ -16,8 +15,5 @@ export class CommentResponseDto {
     this.subComments = subComments;
     this.subCommentsCount = subComments.length;
     this.writer = new UserResponseDto(comment.user);
-    this.mentionUser = comment.mentionUser
-      ? new UserResponseDto(comment.user)
-      : null;
   }
 }
