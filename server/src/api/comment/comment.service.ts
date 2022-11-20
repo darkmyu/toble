@@ -22,7 +22,7 @@ export class CommentService {
     const currentParentCommentId = rootParentCommentId ?? request.parentId;
     const isMention = !!rootParentCommentId;
 
-    const savedUser = await this.commentRepository.save({
+    const savedComment = await this.commentRepository.save({
       userId,
       postId: request.postId,
       parentId: currentParentCommentId,
