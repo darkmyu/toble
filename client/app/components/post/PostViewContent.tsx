@@ -15,10 +15,16 @@ function PostViewContent({ content }: Props) {
 
 const Section = styled.section`
   margin-top: 4rem;
+  position: relative;
 `;
 
 const Content = styled.div`
   ${editorStyles}
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
 `;
 
 export default PostViewContent;
