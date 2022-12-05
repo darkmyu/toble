@@ -93,8 +93,8 @@ const Title = styled.h1`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
   overflow: hidden;
+  word-break: break-all;
   margin: 0;
   font-size: 1rem;
   color: ${black[800]};

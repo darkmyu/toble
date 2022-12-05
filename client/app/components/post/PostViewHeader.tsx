@@ -50,6 +50,7 @@ const Section = styled.section`
 
 const Title = styled.h1`
   margin: 0;
+  word-break: break-all;
   color: ${black[800]};
 `;
 
