@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Post } from '../../lib/api/types';
 import { black } from '../../lib/styles/palette';
 import { formatDate, formatNumber } from '../../lib/utils';
-import { Comment, Like } from '../icon/vector';
+import { CommentIcon, LikeIcon } from '../icon/vector';
 
 interface Props {
   post: Post;
@@ -13,7 +13,7 @@ interface Props {
 function PostCard({ post }: Props) {
   return (
     <Box>
-      <Link href={`/@${post.user.username}/${post.id}`}>
+      <Link href={`/@${post.writer.username}/${post.id}`}>
         <StyledAnchor>
           <Thumbnail>
             <Image
@@ -33,25 +33,25 @@ function PostCard({ post }: Props) {
         </StyledAnchor>
       </Link>
       <Footer>
-        <Link href={`/@${post.user.username}`}>
+        <Link href={`/@${post.writer.username}`}>
           <Anchor>
             <Image
-              src={post.user.profileImageUrl}
+              src={post.writer.profileImageUrl}
               width={24}
               height={24}
               objectFit='cover'
               alt=''
             />
-            <DisplayName>{post.user.displayName}</DisplayName>
+            <DisplayName>{post.writer.displayName}</DisplayName>
           </Anchor>
         </Link>
         <State>
           <StateBlock>
-            <Comment />
+            <CommentIcon />
             {formatNumber(post.commentsCount)}
           </StateBlock>
           <StateBlock>
-            <Like />
+            <LikeIcon />
             {formatNumber(post.likes)}
           </StateBlock>
         </State>

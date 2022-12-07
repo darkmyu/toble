@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-function Dot(props: SVGProps<SVGSVGElement>) {
+function DotIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width='20' height='20' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
       <path
@@ -11,4 +11,4 @@ function Dot(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default Dot;
+export default DotIcon;

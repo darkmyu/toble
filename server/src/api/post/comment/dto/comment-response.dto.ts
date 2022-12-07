@@ -1,5 +1,5 @@
-import UserResponseDto from '../../auth/dto/user-response.dto';
-import { Comment } from '../../../entity/comment.entity';
+import { Comment } from '../../../../entity/comment.entity';
+import { PostUserResponseDto } from './../../dto/post-user-response.dto';
 import { SubCommentResponseDto } from './sub-comment-response.dto';
 
 export class CommentResponseDto {
@@ -7,13 +7,13 @@ export class CommentResponseDto {
   content: string;
   subComments: SubCommentResponseDto[];
   subCommentsCount: number;
-  writer: UserResponseDto;
+  writer: PostUserResponseDto;
 
   constructor(comment: Comment, subComments: SubCommentResponseDto[]) {
     this.id = comment.id;
     this.content = comment.content;
     this.subComments = subComments;
     this.subCommentsCount = subComments.length;
-    this.writer = new UserResponseDto(comment.user);
+    this.writer = new PostUserResponseDto(comment.user);
   }
 }

@@ -9,6 +9,8 @@ import { PostState } from '../../entity/post-state.entity';
 import { Post } from '../../entity/post.entity';
 import { Page } from '../../utils/page';
 import { Blog } from './../../entity/blog.entity';
+import { CommentService } from './comment/comment.service';
+import { PostAndCommentResponseDto } from './dto/post-and-comment-response.dto';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
 import { PostCreateResponseDto } from './dto/post-create-response.dto';
 import { PostResponseDto } from './dto/post-response.dto';
@@ -22,6 +24,7 @@ export class PostService {
     private readonly postRepository: Repository<Post>,
     @InjectRepository(PostState)
     private readonly postStateRepository: Repository<PostState>,
+    private readonly commentService: CommentService,
   ) {}
 
   async findAll(page: number, size: number) {
@@ -51,7 +54,10 @@ export class PostService {
 
     if (!findPost) throw new NotFoundException('Post is not found');
 
-    return new PostResponseDto(findPost);
+    const post = new PostResponseDto(findPost);
+    const comments = await this.commentService.find(id);
+
+    return new PostAndCommentResponseDto(post, comments);
   }
 
   async create(userId: number, post: PostCreateRequestDto) {

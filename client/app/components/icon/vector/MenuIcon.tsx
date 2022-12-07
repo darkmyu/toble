@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-function Menu(props: SVGProps<SVGSVGElement>) {
+function MenuIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 512 512' {...props}>
       <path
@@ -45,4 +45,4 @@ function Menu(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default Menu;
+export default MenuIcon;

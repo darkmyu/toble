@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-function BookmarkOutline(props: SVGProps<SVGSVGElement>) {
+function BookmarkOutlineIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' {...props}>
       <path
@@ -11,4 +11,4 @@ function BookmarkOutline(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default BookmarkOutline;
+export default BookmarkOutlineIcon;

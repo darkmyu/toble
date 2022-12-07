@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-function CopyLink(props: SVGProps<SVGSVGElement>) {
+function CopyLinkIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' {...props}>
       <path
@@ -11,4 +11,4 @@ function CopyLink(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default CopyLink;
+export default CopyLinkIcon;

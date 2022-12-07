@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { black, personal } from '../../lib/styles/palette';
 import DynamicIconButton from './DynamicIconButton';
-import { BookmarkFill, BookmarkOutline } from './vector';
+import { BookmarkFillIcon, BookmarkOutlineIcon } from './vector';
 
 interface Props {
   size: number;
@@ -21,11 +21,11 @@ function BookmarkIconButton({ size, isActive, onClick }: Props) {
   );
 }
 
-const StyledBookmarkOutline = styled(BookmarkOutline)`
+const StyledBookmarkOutline = styled(BookmarkOutlineIcon)`
   color: ${black[500]};
 `;
 
-const StyledBookmarkFill = styled(BookmarkFill)`
+const StyledBookmarkFill = styled(BookmarkFillIcon)`
   color: ${personal[800]} !important;
 `;
 

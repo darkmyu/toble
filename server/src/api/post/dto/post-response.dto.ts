@@ -12,7 +12,7 @@ export class PostResponseDto {
   commentsCount: number;
   createdAt: string;
   updatedAt: string;
-  user: PostUserResponseDto;
+  writer: PostUserResponseDto;
 
   constructor(post: Partial<Post>) {
     this.id = post.id;
@@ -25,6 +25,6 @@ export class PostResponseDto {
     this.commentsCount = post.postState.commentsCount;
     this.createdAt = post.createdAt.toString();
     this.updatedAt = post.updatedAt.toString();
-    this.user = new PostUserResponseDto(post.user);
+    this.writer = new PostUserResponseDto(post.user);
   }
 }

@@ -30,6 +30,11 @@ export interface Topic {
   name: string;
 }
 
+export interface PostAndComment {
+  post: Post;
+  comments: Comment[];
+}
+
 export interface Post {
   id: number;
   title: string;
@@ -41,11 +46,28 @@ export interface Post {
   commentsCount: number;
   createdAt: string;
   updatedAt: string;
-  user: {
-    username: string;
-    displayName: string;
-    profileImageUrl: string;
-  };
+  writer: Writer;
+}
+
+export interface Comment {
+  id: number;
+  content: string;
+  subComments: SubComment[];
+  subCommentsCount: number;
+  writer: Writer;
+}
+
+export interface SubComment {
+  id: number;
+  content: string;
+  writer: Writer;
+  mentionUser: Writer | null;
+}
+
+export interface Writer {
+  username: string;
+  displayName: string;
+  profileImageUrl: string;
 }
 
 export interface PostCreateRequest {

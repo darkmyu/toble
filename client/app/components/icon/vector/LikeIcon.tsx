@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-function Like(props: SVGProps<SVGSVGElement>) {
+function LikeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' {...props}>
       <path
@@ -11,4 +11,4 @@ function Like(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default Like;
+export default LikeIcon;

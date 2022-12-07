@@ -1,17 +1,17 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { User } from '../../../entity/user.entity';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { AuthUser } from '../../user/decorator/user-decorator';
 import { CommentService } from './comment.service';
-import { AuthUser } from '../user/decorator/user-decorator';
-import { User } from '../../entity/user.entity';
 import { CommentCreateRequestDto } from './dto/comment-create-request.dto';
 
 @Controller('api/v1/comments')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
-  @Get()
-  async find(@Body() body: { postId: number }) {
-    return this.commentService.find(body.postId);
+  @Get(':postId')
+  async find(@Param('postId') postId: number) {
+    return this.commentService.find(postId);
   }
 
   @Post()

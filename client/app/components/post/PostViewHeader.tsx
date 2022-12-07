@@ -5,7 +5,7 @@ import { Post } from '../../lib/api/types';
 import { black } from '../../lib/styles/palette';
 import { formatDate } from '../../lib/utils';
 import BookmarkIconButton from '../icon/BookmarkIconButton';
-import { CopyLink, Dot } from '../icon/vector';
+import { CopyLinkIcon, DotIcon } from '../icon/vector';
 
 interface Props {
   post: Post;
@@ -17,10 +17,10 @@ function PostViewHeader({ post }: Props) {
       <Title>{post.title}</Title>
       <Box>
         <Profile>
-          <Link href={`/@${post.user.username}`}>
+          <Link href={`/@${post.writer.username}`}>
             <Anchor>
               <Image
-                src={post.user.profileImageUrl}
+                src={post.writer.profileImageUrl}
                 width={42}
                 height={42}
                 objectFit='cover'
@@ -29,14 +29,14 @@ function PostViewHeader({ post }: Props) {
             </Anchor>
           </Link>
           <Info>
-            <DisplayName>{post.user.displayName}</DisplayName>
+            <DisplayName>{post.writer.displayName}</DisplayName>
             <CreatedAt>{formatDate(post.createdAt)}</CreatedAt>
           </Info>
         </Profile>
         <Service>
           <BookmarkIconButton size={20} isActive={false} />
-          <CopyLink />
-          <Dot />
+          <CopyLinkIcon />
+          <DotIcon />
         </Service>
       </Box>
     </Section>

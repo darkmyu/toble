@@ -1,8 +1,8 @@
 import client from './client';
-import { PageResponse, Post, PostCreateRequest, PostCreateResponse } from './types';
+import { PageResponse, Post, PostAndComment, PostCreateRequest, PostCreateResponse } from './types';
 
 export const getPost = async (id: number) => {
-  const response = await client.get<Post>(`/api/v1/posts/${id}`);
+  const response = await client.get<PostAndComment>(`/api/v1/posts/${id}`);
   return response.data;
 };
 
