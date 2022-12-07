@@ -52,16 +52,12 @@ export interface Post {
 export interface Comment {
   id: number;
   content: string;
-  subComments: SubComment[];
+  subComments?: Comment[];
   subCommentsCount: number;
-  writer: Writer;
-}
-
-export interface SubComment {
-  id: number;
-  content: string;
-  writer: Writer;
   mentionUser: Writer | null;
+  writer: Writer;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Writer {

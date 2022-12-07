@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Post } from './post.entity';
 import { User } from './user.entity';
@@ -27,6 +29,12 @@ export class Comment {
 
   @Column('text')
   content: string;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()

@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { Comment } from '../../../entity/comment.entity';
 import { CommentCreateRequestDto } from './dto/comment-create-request.dto';
 import { CommentResponseDto } from './dto/comment-response.dto';
-import { SubCommentResponseDto } from './dto/sub-comment-response.dto';
 
 @Injectable()
 export class CommentService {
@@ -39,12 +38,12 @@ export class CommentService {
 
     if (!comments) return [];
 
-    const subCommentMap = new Map<number, SubCommentResponseDto[]>();
+    const subCommentMap = new Map<number, Comment[]>();
     comments.forEach((comment) => {
       if (!comment.parentId) return;
 
       const newArray = subCommentMap.get(comment.parentId) ?? [];
-      newArray.push(new SubCommentResponseDto(comment));
+      newArray.push(comment);
       subCommentMap.set(comment.parentId, newArray);
     });
 
@@ -52,7 +51,7 @@ export class CommentService {
       .filter((comment) => comment.parentId === null)
       .map(
         (comment) =>
-          new CommentResponseDto(comment, subCommentMap.get(comment.id) ?? []),
+          new CommentResponseDto(comment, subCommentMap.get(comment.id)),
       );
   }
 }

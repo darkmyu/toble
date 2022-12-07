@@ -1,22 +1,22 @@
 import styled from '@emotion/styled';
-import { SubComment } from '../../../lib/api/types';
+import { Comment } from '../../../lib/api/types';
+import CommentItem from './CommentItem';
 
 interface Props {
-  subComments: SubComment[];
+  subComments: Comment[];
 }
 
 function SubCommentList({ subComments }: Props) {
   return (
-    <SubCommentListBlock>
+    <Block>
       {subComments.map(subComment => (
-        <></>
-        // <SubCommentItem key={subComment.id} subComment={subComment} />
+        <CommentItem key={subComment.id} comment={subComment} isSubComment />
       ))}
-    </SubCommentListBlock>
+    </Block>
   );
 }
 
-const SubCommentListBlock = styled.div`
+const Block = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
