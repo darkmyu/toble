@@ -12,7 +12,7 @@ export const formatNumber = (number: number) => {
   }
 };
 
-export const formatDate = (date: string) => {
+export const formatDate = (date: string, isFormat: boolean = true) => {
   const d = new Date(date);
   const now = Date.now();
   const diff = (now - d.getTime()) / 1000;
@@ -29,5 +29,7 @@ export const formatDate = (date: string) => {
     return formatDistanceToNow(d, { addSuffix: true, locale: ko });
   }
 
-  return format(d, 'yyyy년 M월 d일');
+  return isFormat
+    ? format(d, 'yyyy년 M월 d일')
+    : formatDistanceToNow(d, { addSuffix: true, locale: ko });
 };

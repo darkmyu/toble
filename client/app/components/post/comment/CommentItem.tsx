@@ -35,7 +35,7 @@ function CommentItem({ comment, isSubComment }: Props) {
       <Body>
         <BodyHeader>
           <Name>{displayName}</Name>
-          <CreatedDate>{formatDate(createdAt)}</CreatedDate>
+          <CreatedDate>{formatDate(createdAt, false)}</CreatedDate>
         </BodyHeader>
         <BodyContent>{content}</BodyContent>
         <CommentExpander
