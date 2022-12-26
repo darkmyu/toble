@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 import { Post } from '../../lib/api/types';
 import { black } from '../../lib/styles/palette';
 import { formatDate } from '../../lib/utils';
@@ -12,6 +13,11 @@ interface Props {
 }
 
 function PostViewHeader({ post }: Props) {
+  const handleClickCopyURL = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success('링크를 클립보드에 복사했어요!');
+  };
+
   return (
     <Section>
       <Title>{post.title}</Title>
@@ -35,7 +41,7 @@ function PostViewHeader({ post }: Props) {
         </Profile>
         <Service>
           <BookmarkIconButton size={20} isActive={false} />
-          <CopyLinkIcon />
+          <CopyLinkIcon onClick={handleClickCopyURL} />
           <DotIcon />
         </Service>
       </Box>
