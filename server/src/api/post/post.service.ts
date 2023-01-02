@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -14,6 +15,8 @@ import { PostAndCommentResponseDto } from './dto/post-and-comment-response.dto';
 import { PostCreateRequestDto } from './dto/post-create-request.dto';
 import { PostCreateResponseDto } from './dto/post-create-response.dto';
 import { PostResponseDto } from './dto/post-response.dto';
+import { PostUpdateRequestDto } from './dto/post-update-request.dto';
+import { PostUpdateResponseDto } from './dto/post-update-response.dto';
 
 @Injectable()
 export class PostService {
@@ -72,11 +75,9 @@ export class PostService {
     }
 
     const createdPost = this.postRepository.create({ ...post, userId });
-    const createdPostState = this.postStateRepository.create({
+    createdPost.postState = this.postStateRepository.create({
       postId: createdPost.id,
     });
-
-    createdPost.postState = createdPostState;
 
     const savedPost = await this.postRepository.save(createdPost);
 
@@ -85,5 +86,30 @@ export class PostService {
     }
 
     return new PostCreateResponseDto(savedPost.id);
+  }
+
+  async update(userId: number, postId: number, request: PostUpdateRequestDto) {
+    const findPost = await this.postRepository.findOne({
+      relations: { user: true },
+      where: { id: postId },
+    });
+
+    if (userId !== findPost.user.id) {
+      throw new ForbiddenException('You are not the owner of the post');
+    }
+
+    /**
+     * @todo add thumbnail, description logic
+     */
+    findPost.title = request.title;
+    findPost.content = request.content;
+
+    const savedPost = await this.postRepository.save(findPost);
+
+    if (!savedPost) {
+      throw new InternalServerErrorException('Post save fail');
+    }
+
+    return new PostUpdateResponseDto(savedPost.id);
   }
 }

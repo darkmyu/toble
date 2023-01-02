@@ -78,6 +78,17 @@ export interface PostCreateResponse {
   id: number;
 }
 
+export interface PostUpdateRequest {
+  title: string;
+  content: string;
+  description?: string;
+  thumbnail?: string;
+}
+
+export interface PostUpdateResponse {
+  id: number;
+}
+
 export interface PageResponse<T> {
   page: number;
   size: number;

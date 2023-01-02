@@ -1,22 +1,43 @@
 import styled from '@emotion/styled';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../atoms/userState';
-import { createPost } from '../../lib/api/post';
-import { PostCreateRequest } from '../../lib/api/types';
-import { ResponsiveParent } from '../../lib/styles/media';
-import { black, personal } from '../../lib/styles/palette';
-import { useWrite } from './hooks/useWrite';
+import { createPost, getPost, updatePost } from '../../lib/api/post';
+import { PostCreateRequest, PostUpdateRequest } from '../../lib/api/types';
+import { black } from '../../lib/styles/palette';
 import WriteEditor from './WriteEditor';
+import WriteFormTemplate from './WriteFormTemplate';
 
 function Write() {
   const router = useRouter();
+  const { id } = router.query as { id: string };
   const user = useRecoilValue(userState);
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { onKeyDownCancelEnter, onInputTextareaResize, titleRef, onClickExit } = useWrite();
+  const [text, setText] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
+  // const titleRef = useRef<HTMLTextAreaElement>(null);
+
+  const { data } = useQuery(['getPost2', id], () => getPost(parseInt(id, 10)), {
+    enabled: !!id,
+  });
+
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleKeyDownCancelEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
+  const handleInputTextareaResize = () => {
+    //
+  };
 
   const createPostMutation = useMutation((data: PostCreateRequest) => createPost(data), {
     onError: () => {
@@ -27,62 +48,67 @@ function Write() {
     },
   });
 
-  const onSubmitPost = () => {
-    if (!titleRef.current) return;
-    if (titleRef.current.value.length === 0) {
+  const updatePostMutation = useMutation(
+    (data: PostUpdateRequest) => updatePost(parseInt(id, 10), data),
+    {
+      onError: () => {
+        toast.error('예기치 못한 오류가 발생했어요!');
+      },
+      onSuccess: ({ id }) => {
+        router.push(`/@${user?.username}/${id}`);
+      },
+    }
+  );
+
+  const handleSubmitPost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (title.length === 0) {
       return toast.error('제목이 비어있어요!');
     }
 
-    const title = titleRef.current.value;
+    /**
+     * @todo add description component
+     */
     const description = '';
 
-    createPostMutation.mutate({ title, content, description });
+    isEdit
+      ? updatePostMutation.mutate({ title, content })
+      : createPostMutation.mutate({ title, content, description });
   };
 
+  useEffect(() => {
+    !!data && setIsEdit(true);
+  }, [data]);
+
+  useEffect(() => {
+    isEdit ? setText('수정 완료') : setText('작성 완료');
+  }, [isEdit]);
+
+  useEffect(() => {
+    if (isEdit && !!data) {
+      setTitle(data.post.title);
+      setContent(data.post.content);
+    }
+  }, [data, isEdit]);
+
+  if (isEdit && user?.id !== data?.post.writer.id) return <></>;
+
   return (
-    <Main>
-      <Responsive>
-        <Wrapper>
-          <TitleBlock>
-            <Textarea
-              placeholder='제목을 입력하세요'
-              onKeyDown={onKeyDownCancelEnter}
-              onInput={onInputTextareaResize}
-              ref={titleRef}
-            />
-          </TitleBlock>
-          <WriteEditor content={content} setContent={setContent} />
-          <ButtonGroup>
-            <Button onClick={onClickExit} exit>
-              나가기
-            </Button>
-            <Button onClick={onSubmitPost}>작성 완료</Button>
-          </ButtonGroup>
-        </Wrapper>
-      </Responsive>
-    </Main>
+    <WriteFormTemplate buttonText={text} onSubmit={handleSubmitPost}>
+      <TitleBlock>
+        <Textarea
+          value={title}
+          placeholder='제목을 입력하세요'
+          onInput={handleInputTextareaResize}
+          onKeyDown={handleKeyDownCancelEnter}
+          onChange={handleChangeTitle}
+        />
+      </TitleBlock>
+      <WriteEditor content={content} setContent={setContent} />
+    </WriteFormTemplate>
   );
 }
-
-const Main = styled.main`
-  padding-top: 6.25rem;
-  padding-bottom: 6.25rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  height: 100%;
-`;
-
-const Responsive = styled(ResponsiveParent)`
-  max-width: 768px;
-  height: 100%;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-`;
 
 const TitleBlock = styled.div`
   padding-top: 1rem;
@@ -101,30 +127,6 @@ const Textarea = styled.textarea`
   font-size: 1.5rem;
   color: ${black[800]};
   font-family: inherit;
-`;
-
-const ButtonGroup = styled.div`
-  position: fixed;
-  width: 100%;
-  left: 0px;
-  bottom: 0px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 1rem;
-  gap: 0.875rem;
-  background: whitesmoke;
-`;
-
-const Button = styled.button<{ exit?: boolean }>`
-  background: ${props => (props.exit ? black[400] : personal[800])};
-  color: white;
-  border: none;
-  padding: 0.5rem 2rem;
-  border-radius: 1rem;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
 `;
 
 export default Write;

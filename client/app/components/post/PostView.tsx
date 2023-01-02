@@ -12,7 +12,7 @@ function PostView() {
   const id = parseInt(router.query.id as string, 10);
   const { data } = useQuery(['getPost', id], () => getPost(id), { enabled: !isNaN(id) });
 
-  if (!data) return <>*Add page is not found component</>;
+  if (!data) return <></>;
 
   const { post, comments } = data;
 

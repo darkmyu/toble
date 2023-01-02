@@ -1,5 +1,13 @@
 import client from './client';
-import { PageResponse, Post, PostAndComment, PostCreateRequest, PostCreateResponse } from './types';
+import {
+  PageResponse,
+  Post,
+  PostAndComment,
+  PostCreateRequest,
+  PostCreateResponse,
+  PostUpdateRequest,
+  PostUpdateResponse,
+} from './types';
 
 export const getPost = async (id: number) => {
   const response = await client.get<PostAndComment>(`/api/v1/posts/${id}`);
@@ -16,5 +24,10 @@ export const getPostList = async (page: number, size: number) => {
 
 export const createPost = async (data: PostCreateRequest) => {
   const response = await client.post<PostCreateResponse>('/api/v1/posts', data);
+  return response.data;
+};
+
+export const updatePost = async (id: number, data: PostUpdateRequest) => {
+  const response = await client.patch<PostUpdateResponse>(`/api/v1/posts/${id}`, data);
   return response.data;
 };
