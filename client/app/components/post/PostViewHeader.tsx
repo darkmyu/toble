@@ -7,15 +7,33 @@ import { black } from '../../lib/styles/palette';
 import { formatDate } from '../../lib/utils';
 import BookmarkIconButton from '../icon/BookmarkIconButton';
 import { CopyLinkIcon, DotIcon } from '../icon/vector';
+import { useToggle } from '../../hooks/useToggle';
+import MenuExpander from '../system/MenuExpander';
+import MenuExpanderItem from '../system/MenuExpanderItem';
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms/userState';
 
 interface Props {
   post: Post;
 }
 
 function PostViewHeader({ post }: Props) {
+  const router = useRouter();
+  const user = useRecoilValue(userState);
+  const { isToggle, handleClickToggle } = useToggle();
+
   const handleClickCopyURL = () => {
     navigator.clipboard.writeText(window.location.href);
     toast.success('링크를 클립보드에 복사했어요!');
+  };
+
+  const handleClickEditor = () => {
+    router.push(`/write?id=${post.id}`);
+  };
+
+  const handleClickDelete = () => {
+    console.log('delete post test');
   };
 
   return (
@@ -42,9 +60,13 @@ function PostViewHeader({ post }: Props) {
         <Service>
           <BookmarkIconButton size={20} isActive={false} />
           <CopyLinkIcon onClick={handleClickCopyURL} />
-          <DotIcon />
+          {post.writer.id === user?.id && <DotIcon onClick={handleClickToggle} />}
         </Service>
       </Box>
+      <MenuExpander isOpen={isToggle}>
+        <MenuExpanderItem title='수정하기' onClick={handleClickEditor} />
+        <MenuExpanderItem title='삭제하기' onClick={handleClickDelete} />
+      </MenuExpander>
     </Section>
   );
 }

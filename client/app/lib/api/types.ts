@@ -61,6 +61,7 @@ export interface Comment {
 }
 
 export interface Writer {
+  id: number;
   username: string;
   displayName: string;
   profileImageUrl: string;
