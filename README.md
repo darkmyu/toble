@@ -9,11 +9,6 @@
 
 <br />
 
-## 개발 기간
-2022.8.28 ~ 현재(개발 중단)
-
-<br />
-
 ## 홈페이지 PC
 ### 메인 페이지
 ![main](https://user-images.githubusercontent.com/60710735/210243644-9c1f6818-de46-4f64-946c-e2a231b32d54.png)
