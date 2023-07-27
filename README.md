@@ -3,7 +3,6 @@
 통합형 블로그 서비스
 
 <br />
-<br />
 
 ## 핵심 기술
 
@@ -23,7 +22,6 @@
   <img src="https://img.shields.io/badge/MariaDB-003545?style=flat&logo=mariadb&logoColor=white"/>
 </div>
 
-<br />
 <br />
 
 ## 홈페이지 PC
