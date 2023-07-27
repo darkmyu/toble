@@ -20,7 +20,7 @@
 <div>
   <img src="https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white"/>
   <img src="https://img.shields.io/badge/TypeORM-3E3E3E?style=flat&logoColor=white"/>
-  <img src="https://img.shields.io/badge/TypeORM-003545?style=flat&logo=mariadb&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MariaDB-003545?style=flat&logo=mariadb&logoColor=white"/>
 </div>
 
 <br />
