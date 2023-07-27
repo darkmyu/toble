@@ -3,10 +3,27 @@
 통합형 블로그 서비스
 
 <br />
+<br />
 
-## 사용 언어
-<img alt="Typescript" src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=white"/>
+## 핵심 기술
 
+### Frontend
+<div>
+<!--   <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=white"/> -->
+  <img src="https://img.shields.io/badge/Next.js-%23000000?style=flat&logo=nextdotjs"/>
+  <img src="https://img.shields.io/badge/React%20Query-FF4154?style=flat&logo=reactquery&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=recoil&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Emotion-DB7093?style=flat&logo=styledcomponents&logoColor=white"/>
+</div>
+
+### Backend
+<div>
+  <img src="https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TypeORM-3E3E3E?style=flat&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TypeORM-003545?style=flat&logo=mariadb&logoColor=white"/>
+</div>
+
+<br />
 <br />
 
 ## 홈페이지 PC
@@ -28,6 +45,7 @@
 ### 게시물 수정 페이지
 ![image](https://user-images.githubusercontent.com/60710735/210248217-b22895d7-7e03-4bdd-867d-b84e4c2a9715.png)
 
+<br />
 <br />
 
 ## 홈페이지 Mobile
